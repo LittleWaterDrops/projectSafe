@@ -9,8 +9,9 @@ import { Component } from 'react';
       View,
       TouchableOpacity,
   } from 'react-native';
- 
-export default class appListScreen extends Component {
+import {data} from './appListScreen';
+
+export default class appFuncListScreen extends Component {
  
   render() { 
     return (

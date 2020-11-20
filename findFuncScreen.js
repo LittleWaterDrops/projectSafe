@@ -131,7 +131,7 @@ function HomeScreen({ navigation }) {
   );
 }
 
-const Stack = createStackNavigator();
+export const Stack = createStackNavigator();
 
 function MyStack() {
   setTimeout(() => {
@@ -139,13 +139,9 @@ function MyStack() {
   }, 100);
 
   return (
-    <Stack.Navigator
-    screenOptions={{
-      headerTintColor: '#01DFD7',
-      headerStyle: { backgroundColor: '#000000' },
-      }}>
+    <Stack.Navigator>
       <Stack.Screen name=" " component={HomeScreen} options = {{headerShown: false}}/>
-      <Stack.Screen name="appListScreen" component={appListScreen} />
+      <Stack.Screen name="appListScreen" component={appListScreen}  options = {{headerShown: false}} />
       <Stack.Screen name="settingScreen" component={settingScreen} />
       <Stack.Screen name="funcListScreen" component={funcListScreen} />
       <Stack.Screen name="resentUseScreen" component={resentUseScreen} />
@@ -174,7 +170,6 @@ export default function App() {
   useEffect(() => {
     // askPermissions.askStoragePermission();
     // askPermissions.voiceAnnounceAlert();
-
 
     /*
     const db = SQLite.openDatabase(

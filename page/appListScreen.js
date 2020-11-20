@@ -1,4 +1,7 @@
-import React, { Component } from 'react';
+import React, { 
+  useState, 
+  useEffect,
+ } from 'react';
 import {
     StyleSheet,
     View,
@@ -11,43 +14,71 @@ import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
 // import { WebView } from 'react-native-webview';
 import AndroidOpenSettings from 'react-native-android-open-settings';
+import appFuncListScreen from './appFuncListScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const data = [
-  {id: '1', text: '설정'},
-  {id: '2', text: '유튜브'},
-  {id: '3', text: '카카오톡'}
+export const data = [{
+  appID: '1', 
+  appName: '설정', 
+  authority: true, 
+  appFunction:[{
+    funcID:'1',
+    funcName: "와이파이/인터넷연결",
+  },{
+    funcID:'2',
+    funcName: "디스플레이/글씨크기",
+  },{
+    funcID:'3',
+    funcName: "디스플레이/쉬운사용모드",
+  },]},
+  {
+  appID: '2', 
+  appName: '유튜브',
+  authority: true, 
+  appFunction:[{
+    funcID:'1',
+    funcName: "구독과 좋아요",
+  },{
+    funcID:'2',
+    funcName: "알람 설정까지",
+  }]},
+  {
+  appID: '3', 
+  appName: '카카오톡',
+  authority: true, 
+  appFunction:[{
+    funcID:'1',
+    funcName: "채팅방 나가기",
+  }]},
 ]
 
-export default class appListScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showData: [],
-      searchQuery: '',
-    };
-  }
-  componentDidMount(){
-    this.setState({showData:data});
-  }
+
+function thisScreen({navigation}){
+  const[showData,setShowData] = useState([]);
+  const[searchQuery,setSearchQuery] = useState('');
+  useEffect(() => {
+    setShowData(data);
+  },[]);
 
   onChangeSearch = (query) => {
-    this.setState({searchQuery: query});
+    setSearchQuery(query);
 
     const buffer = filter(data, function (findText){
-      return findText.text === query;
+      return findText.appName === query;
     });
 
     if(query == ''){
       console.log('query null');
-      this.setState({showData:data});
+      setShowData(data);
     }
     else {
-      this.setState({showData:buffer});
+      setShowData(buffer);
     }
 
   }
 
-  runTutorial (appName) {
+  runTutorial = (appName) => {
     if(appName == '설정'){
       console.log(appName + ' app is pressed');
       AndroidOpenSettings.generalSettings();
@@ -58,46 +89,58 @@ export default class appListScreen extends Component {
     }
     if(appName == '카카오톡'){
       console.log(appName + ' app is pressed');
+      navigation.navigate('appFuncListScreen');
     }
   }
 
-  render() {
-    return (
-      <View
+  return (
+    <View
+    style={{
+      flex: 1,
+      paddingHorizontal: 20,
+      paddingVertical: 20,
+      marginTop: 40
+    }}>
+    <Searchbar
+    clearButtonMode= 'while-editing'
+    placeholder='앱 이름 검색'
+    onChangeText={this.onChangeSearch}
+    value={searchQuery}
+    />
+    <FlatList
+      data={showData}
+      keyExtractor={item => item.appID}
+      renderItem={({ item }) => (
+        <TouchableOpacity onPress={() => this.runTutorial(item.appName)}>
+          <View
       style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 40
-      }}>
-      <Searchbar
-      clearButtonMode= 'while-editing'
-      placeholder='앱 이름 검색'
-      onChangeText={this.onChangeSearch}
-      value={this.state.searchQuery}
-      />
-      <FlatList
-        data={this.state.showData}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => this.runTutorial(item.text)}>
-            <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-            <Text style={{ fontSize: 22 }}>
-              {item.id}.  {item.text}
-            </Text>
-          </TouchableOpacity>
+        flexDirection: 'row',
+        padding: 16,
+        alignItems: 'center'
+      }}></View>
+          <Text style={{ fontSize: 22 }}>
+            {item.appID}.  {item.appName}
+          </Text>
+        </TouchableOpacity>
 
-        )}
-      />
-    </View>
-    );
-  }
+      )}
+    />
+  </View>
+  );
 }
+
+const appListStack = createStackNavigator();
+
+export default function appListScreen() {
+
+  return (
+    <appListStack.Navigator>
+    <appListStack.Screen name="appListScreen" component={thisScreen}/>
+    <appListStack.Screen name="appFuncListScreen" component={appFuncListScreen}/>
+    </appListStack.Navigator>
+  )
+}
+
 
 /*      
 <WebView
