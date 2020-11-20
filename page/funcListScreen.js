@@ -47,8 +47,8 @@ export default class funcListScreen extends Component {
   onChangeSearch = (query) => {
     this.setState({searchQuery: query});
 
-    const buffer = filter(data, function (findText){
-      return findText.text === query;
+    const buffer = filter(this.state.changedData, function (findText){
+      return findText.funcName.includes(query);
     });
 
     if(query == ''){

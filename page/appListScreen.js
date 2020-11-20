@@ -18,6 +18,7 @@ import appFuncListScreen from './appFuncListScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+export var whatApp;
 export const data = [{
   appID: '1', 
   appName: '설정', 
@@ -65,7 +66,7 @@ function thisScreen({navigation}){
     setSearchQuery(query);
 
     const buffer = filter(data, function (findText){
-      return findText.appName === query;
+      return findText.appName.includes(query);
     });
 
     if(query == ''){
@@ -78,19 +79,10 @@ function thisScreen({navigation}){
 
   }
 
-  runTutorial = (appName) => {
-    if(appName == '설정'){
-      console.log(appName + ' app is pressed');
-      AndroidOpenSettings.generalSettings();
-    }
-    if(appName == '유튜브'){
-      console.log(appName + ' app is pressed');
-      Linking.openURL('https://youtube.com');
-    }
-    if(appName == '카카오톡'){
-      console.log(appName + ' app is pressed');
-      navigation.navigate('appFuncListScreen');
-    }
+  appFuncList = (appName) => {
+    console.log(appName + ' app is pressed');
+    whatApp = appName;
+    navigation.navigate('appFuncListScreen');
   }
 
   return (
@@ -111,7 +103,7 @@ function thisScreen({navigation}){
       data={showData}
       keyExtractor={item => item.appID}
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => this.runTutorial(item.appName)}>
+        <TouchableOpacity onPress={() => this.appFuncList(item.appName)}>
           <View
       style={{
         flexDirection: 'row',
