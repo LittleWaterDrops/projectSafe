@@ -168,13 +168,25 @@ export function runTutorial (appName,authority,funcID,funcName) {
 
 
 export function settingFunc(funcID,funcName) {
+/*  funcID:'1', funcName: "와이파이/인터넷연결",
+    funcID:'2', funcName: "디스플레이/글씨크기",
+    funcID:'3', funcName: "디스플레이/쉬운사용모드", */
+
   console.log('setting / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
-  // AndroidOpenSettings.generalSettings();
+  if(funcID == 1){
+    AndroidOpenSettings.wifiSettings();
+  }
+  else if(funcID == 2){
+    AndroidOpenSettings.displaySettings();
+  }
+  else if(funcID == 3){
+    AndroidOpenSettings.displaySettings();
+  }
 }
 
 export function youtubeFunc(funcID,funcName) {
   console.log('youtube / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
-  // Linking.openURL('https://youtube.com');
+  Linking.openURL('https://youtube.com');
 }
 
 export function kakaotalkFunc(funcID,funcName) {

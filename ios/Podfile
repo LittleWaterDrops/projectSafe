@@ -18,6 +18,8 @@ target 'projectSafe' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
+
   target 'projectSafeTests' do
     inherit! :complete
     # Pods for testing
