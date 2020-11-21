@@ -75,7 +75,7 @@ function HomeScreen({ navigation }) {
       >
       <TouchableOpacity
         style={[styles.menuButton, {backgroundColor: '#FFFFFF'}]}
-        onPress={() => navigation.navigate('resentUseScreen')} 
+        onPress={() => navigation.navigate('최근 / 자주 사용')} 
         >
         <Text style={styles.buttonText}> 
         최근 / 자주 사용
@@ -84,7 +84,7 @@ function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={[styles.menuButton, {backgroundColor: '#F1F9FF'}]}
-        onPress={() => navigation.navigate('funcListScreen')} 
+        onPress={() => navigation.navigate('기능 별로 보기')} 
         >
         <Text style={styles.buttonText}> 
         기능 별로 보기
@@ -93,7 +93,7 @@ function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={[styles.menuButton, {backgroundColor: '#BCE0FD'}]}
-        onPress={() => navigation.navigate('appListScreen')} 
+        onPress={() => navigation.navigate('앱 별로 보기')} 
         >
         <Text style={styles.buttonText}> 
         앱 별로 보기
@@ -102,7 +102,7 @@ function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={[styles.menuButton, {backgroundColor: '#7FC4FD'}]}
-        onPress={() => navigation.navigate('searchScreen')} 
+        onPress={() => navigation.navigate('검색')} 
         >
         <Text style={styles.buttonText}> 
         검색
@@ -111,7 +111,7 @@ function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={[styles.menuButton, {backgroundColor: '#2699FB'}]}
-        onPress={() => navigation.navigate('settingScreen')} 
+        onPress={() => navigation.navigate('앱 리스트 설정')} 
         >
         <Text style={styles.buttonText}> 
           앱 리스트 설정
@@ -141,11 +141,11 @@ function MyStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name=" " component={HomeScreen} options = {{headerShown: false}}/>
-      <Stack.Screen name="appListScreen" component={appListScreen}  options = {{headerShown: false}} />
-      <Stack.Screen name="settingScreen" component={settingScreen} />
-      <Stack.Screen name="funcListScreen" component={funcListScreen} />
-      <Stack.Screen name="resentUseScreen" component={resentUseScreen} />
-      <Stack.Screen name="searchScreen" component={searchScreen} />
+      <Stack.Screen name="앱 별로 보기" component={appListScreen}  options = {{headerShown: false}} />
+      <Stack.Screen name="앱 리스트 설정" component={settingScreen} />
+      <Stack.Screen name="기능 별로 보기" component={funcListScreen} />
+      <Stack.Screen name="최근 / 자주 사용" component={resentUseScreen} />
+      <Stack.Screen name="검색" component={searchScreen} />
     </Stack.Navigator>
   );
 }

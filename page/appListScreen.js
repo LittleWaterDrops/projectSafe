@@ -17,43 +17,8 @@ import AndroidOpenSettings from 'react-native-android-open-settings';
 import appFuncListScreen from './appFuncListScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { data } from './appFuncListScreen';
 export var whatApp;
-export const data = [{
-  appID: '1', 
-  appName: '설정', 
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "와이파이/인터넷연결",
-  },{
-    funcID:'2',
-    funcName: "디스플레이/글씨크기",
-  },{
-    funcID:'3',
-    funcName: "디스플레이/쉬운사용모드",
-  },]},
-  {
-  appID: '2', 
-  appName: '유튜브',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "구독과 좋아요",
-  },{
-    funcID:'2',
-    funcName: "알람 설정까지",
-  }]},
-  {
-  appID: '3', 
-  appName: '카카오톡',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "채팅방 나가기",
-  }]},
-]
-
 
 function thisScreen({navigation}){
   const[showData,setShowData] = useState([]);
@@ -80,9 +45,8 @@ function thisScreen({navigation}){
   }
 
   appFuncList = (appName) => {
-    console.log(appName + ' app is pressed');
     whatApp = appName;
-    navigation.navigate('appFuncListScreen');
+    navigation.navigate('앱 기능 보기');
   }
 
   return (
@@ -127,8 +91,8 @@ export default function appListScreen() {
 
   return (
     <appListStack.Navigator>
-    <appListStack.Screen name="appListScreen" component={thisScreen}/>
-    <appListStack.Screen name="appFuncListScreen" component={appFuncListScreen}/>
+    <appListStack.Screen name="앱 별로 보기" component={thisScreen}/>
+    <appListStack.Screen name="앱 기능 보기" component={appFuncListScreen}/>
     </appListStack.Navigator>
   )
 }

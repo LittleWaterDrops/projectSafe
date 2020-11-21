@@ -9,8 +9,11 @@ import {
 } from 'react-native';
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
-import AndroidOpenSettings from 'react-native-android-open-settings';
-import {data} from './appListScreen';
+import {
+  data,
+  runTutorial,
+} from './appFuncListScreen';
+
 
 export default class funcListScreen extends Component {
   constructor(props) {
@@ -30,6 +33,7 @@ export default class funcListScreen extends Component {
         let buffer = {
           showedNum: count,
           appName: data[i].appName,
+          funcID: data[i].appFunction[j].funcID,
           funcName: data[i].appFunction[j].funcName
         }
         arr.push(buffer);
@@ -61,20 +65,6 @@ export default class funcListScreen extends Component {
 
   }
 
-  runTutorial (appName) {
-    if(appName == '설정'){
-      console.log(appName + ' app is pressed');
-      AndroidOpenSettings.generalSettings();
-    }
-    if(appName == '유튜브'){
-      console.log(appName + ' app is pressed');
-      Linking.openURL('https://youtube.com');
-    }
-    if(appName == '카카오톡'){
-      console.log(appName + ' app is pressed');
-    }
-  }
-
   render() {
     return (
       <View
@@ -94,7 +84,7 @@ export default class funcListScreen extends Component {
         data={this.state.showData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => this.runTutorial(item.appName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
         style={{
           flexDirection: 'row',
@@ -103,7 +93,7 @@ export default class funcListScreen extends Component {
         }}></View>
         
             <Text style={{ fontSize: 22 }}>
-              {item.showedNum}. {item.appName} -  {item.funcName}
+              {item.showedNum}. {item.funcName}
             </Text>
           </TouchableOpacity>
 
