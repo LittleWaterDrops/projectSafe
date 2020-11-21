@@ -69,6 +69,7 @@ export default class appFuncListScreen extends Component {
           let buffer = {
             showedNum: count,
             appName: data[i].appName,
+            authority: data[i].authority,
             funcID: data[i].appFunction[j].funcID,
             funcName: data[i].appFunction[j].funcName
           }
@@ -129,7 +130,7 @@ export default class appFuncListScreen extends Component {
         data={this.state.showData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
             <View
         style={{
           flexDirection: 'row',
@@ -148,15 +149,20 @@ export default class appFuncListScreen extends Component {
     );
   }
 }
-export function runTutorial (appName,funcID,funcName) {
-  if(appName == '설정'){
-    settingFunc(funcID,funcName);
+export function runTutorial (appName,authority,funcID,funcName) {
+  if(authority == true){
+    if(appName == '설정'){
+      settingFunc(funcID,funcName);
+    }
+    if(appName == '유튜브'){
+      youtubeFunc(funcID,funcName);
+    }
+    if(appName == '카카오톡'){
+      kakaotalkFunc(funcID,funcName);
+    }
   }
-  if(appName == '유튜브'){
-    youtubeFunc(funcID,funcName);
-  }
-  if(appName == '카카오톡'){
-    kakaotalkFunc(funcID,funcName);
+  else {
+    console.log(appName + ' 권한 x ');
   }
 }
 
