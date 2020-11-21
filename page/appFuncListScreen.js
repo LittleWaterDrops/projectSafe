@@ -43,7 +43,7 @@ export const data = [{
   {
   appID: '3', 
   appName: '카카오톡',
-  authority: true, 
+  authority: false, 
   appFunction:[{
     funcID:'1',
     funcName: "채팅방 나가기",

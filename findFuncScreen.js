@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
         <View style={styles.modalView}>
         <Text style={styles.modalTitle}>어플리케이션 종료</Text>
 
-          <Text style={styles.modalText} >앱을 정말 종료하시겠습니까?</Text>
+          <Text style={styles.modalText}>앱을 정말 종료하시겠습니까?</Text>
 
           <TouchableOpacity
             style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
