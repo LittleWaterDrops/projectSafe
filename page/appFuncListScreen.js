@@ -21,6 +21,7 @@ import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
+import moment from 'moment';
 
 // export const data = [{
 //   appID: '1', 
@@ -185,9 +186,8 @@ export function runTutorial (appName,authority,funcID,funcName) {
           noAuthority(appName);
         }
       }
-
     });
-    realm.close();
+    // realm.close();
   });
 }
 
@@ -201,15 +201,33 @@ export function settingFunc(funcID,funcName) {
     funcID:'3', funcName: "디스플레이/쉬운사용모드", */
 
   console.log('setting / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
-  if(funcID == 1){
-    AndroidOpenSettings.wifiSettings();
-  }
-  else if(funcID == 2){
-    AndroidOpenSettings.displaySettings();
-  }
-  else if(funcID == 3){
-    AndroidOpenSettings.displaySettings();
-  }
+
+  Realm.open({schema:[dataSchema,appFuncSchema]})
+  .then(realm => {
+    let funcUsed = realm.objects('data')[0].appFunction[funcID-1];
+    realm.write(() => {
+      if(funcID == 1){
+        let date = new Date().getTime();
+        funcUsed.funcUsedCount += 1,
+        funcUsed.funcUsedDate = date,
+        AndroidOpenSettings.wifiSettings();
+      }
+      else if(funcID == 2){
+        let date = new Date().getTime();
+        funcUsed.funcUsedCount += 1,
+        funcUsed.funcUsedDate = date,
+        AndroidOpenSettings.displaySettings();
+      }
+      else if(funcID == 3){
+        let date = new Date().getTime();
+        funcUsed.funcUsedCount += 1,
+        funcUsed.funcUsedDate = date,
+        AndroidOpenSettings.displaySettings();
+      }
+    });
+    realm.close();
+  });
+
 }
 
 export function youtubeFunc(funcID,funcName) {

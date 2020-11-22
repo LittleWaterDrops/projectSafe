@@ -22,7 +22,7 @@ import askPermissions from './permission/askPermissions';
 import appListScreen from './page/appListScreen';
 import settingScreen from './page/settingScreen';
 import funcListScreen from './page/funcListScreen';
-import resentUseScreen from './page/resentUseScreen';
+import recentUseScreen from './page/recentUseScreen';
 import searchScreen from './page/searchScreen';
 import Realm from 'realm';
 import {
@@ -31,23 +31,107 @@ import {
 } from './schema/shcema'
 export let data;
 Realm.open({schema:[dataSchema,appFuncSchema]})
-.then(realm => {
-  // realm.write(() => {
-  //   realm.create('data', {
-  //     appID: 3, 
-  //     appName: '카카오톡', 
-  //     authority: false, 
-  //     appFunction: [{
-  //       funcID: 1,
-  //       funcName: "채팅방 나가기",
-  //     },]
-  //   });
-  // });
+.then(realm => { /*
+  realm.write(() => {
+    realm.create('data', {
+      appID: 1, 
+      appName: '설정', 
+      authority: true, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "와이파이/인터넷연결",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 2,
+        funcName: "디스플레이/글씨크기",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 3,
+        funcName: "디스플레이/쉬운사용모드",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },]
+    });
+    realm.create('data', {
+      appID: 2, 
+      appName: '유튜브',
+      authority: true, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "구독과 좋아요",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 2,
+        funcName: "알람 설정까지",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      }]
+    });
+    realm.create('data', {
+      appID: 3, 
+      appName: '카카오톡',
+      authority: false, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "채팅방 나가기",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      }]
+    });
+  });*/
   data = JSON.parse(JSON.stringify(realm.objects('data')));
-  // console.log((JSON.stringify(data)));
+  // console.log(JSON.stringify(data));
   realm.close();
 });
-
+/* In DB, data = [{
+  appID: 1, 
+  appName: '설정', 
+  authority: true, 
+  appFunction:[{
+    funcID: 1,
+    funcName: "와이파이/인터넷연결",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  },{
+    funcID: 2,
+    funcName: "디스플레이/글씨크기",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  },{
+    funcID: 3,
+    funcName: "디스플레이/쉬운사용모드",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  },]},
+  {
+  appID: 2, 
+  appName: '유튜브',
+  authority: true, 
+  appFunction:[{
+    funcID: 1,
+    funcName: "구독과 좋아요",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  },{
+    funcID: 2,
+    funcName: "알람 설정까지",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  }]},
+  {
+  appID: 3, 
+  appName: '카카오톡',
+  authority: false, 
+  appFunction:[{
+    funcID: 1,
+    funcName: "채팅방 나가기",
+    funcUsedCount: 0,
+    funcUsedDate: 0,
+  }]},
+] */
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 
@@ -167,7 +251,7 @@ function MyStack() {
       <Stack.Screen name="앱 별로 보기" component={appListScreen}  options = {{headerShown: false}} />
       <Stack.Screen name="앱 리스트 설정" component={settingScreen} />
       <Stack.Screen name="기능 별로 보기" component={funcListScreen} />
-      <Stack.Screen name="최근 / 자주 사용" component={resentUseScreen} />
+      <Stack.Screen name="최근 / 자주 사용" component={recentUseScreen} />
       <Stack.Screen name="검색" component={searchScreen} />
     </Stack.Navigator>
   );
@@ -192,7 +276,9 @@ export default function App() {
     }
   }
   useEffect(() => {
-    
+    // 앱 실행 시 데이터 초기화
+    // Realm.deleteFile({schema:[dataSchema,appFuncSchema]});
+
     // askPermissions.askStoragePermission();
     // askPermissions.voiceAnnounceAlert();
 

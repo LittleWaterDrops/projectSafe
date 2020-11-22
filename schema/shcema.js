@@ -14,5 +14,7 @@ export const appFuncSchema = {
     properties:{
         funcID:'int',
         funcName: "string",
+        funcUsedCount: 'int',
+        funcUsedDate: 'int',
     }
 }
