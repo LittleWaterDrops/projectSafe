@@ -5,10 +5,7 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
-    Linking,
 } from 'react-native';
-import filter from 'lodash.filter'
-import { Searchbar } from 'react-native-paper';
 import {
   runTutorial,
 } from './appFuncListScreen';
@@ -17,7 +14,6 @@ import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
-// import { data,  } from '../findFuncScreen';
 
 
 
@@ -29,7 +25,6 @@ export default class recentUseScreen extends Component {
       freqShowData: [],
     };
   }
-
 
   filteredData() {
     Realm.open({schema:[dataSchema,appFuncSchema]})
@@ -82,9 +77,7 @@ export default class recentUseScreen extends Component {
   }
 
   componentDidMount(){
-
     this.filteredData();
-
   }
 
   render() {
@@ -96,44 +89,44 @@ export default class recentUseScreen extends Component {
         paddingVertical: 20,
         marginTop: 10
       }}>
+        
       <Text>최근 사용</Text>
       <FlatList
         data={this.state.recentShowData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-        
+              style={{
+                flexDirection: 'row',
+                padding: 16,
+                alignItems: 'center'
+              }}>
+            </View>
             <Text style={{ fontSize: 22 }}>
               {item.appName} -  {item.funcName}
             </Text>
           </TouchableOpacity>
-
         )}
       />
+
       <Text>자주 사용</Text>
       <FlatList
         data={this.state.freqShowData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-        
+              style={{
+                flexDirection: 'row',
+                padding: 16,
+                alignItems: 'center'
+              }}>
+            </View>
             <Text style={{ fontSize: 22 }}>
               {item.appName} -  {item.funcName}
             </Text>
           </TouchableOpacity>
-
         )}
       />
     </View>

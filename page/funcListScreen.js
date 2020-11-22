@@ -5,14 +5,11 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
-    Linking,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
-import {
-  runTutorial,
-} from './appFuncListScreen';
-import { data,  } from '../findFuncScreen';
+import { runTutorial } from './appFuncListScreen';
+import { data } from '../findFuncScreen';
 
 
 
@@ -86,7 +83,7 @@ export default class funcListScreen extends Component {
         data={this.state.showData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
         style={{
           flexDirection: 'row',
@@ -105,9 +102,3 @@ export default class funcListScreen extends Component {
     );
   }
 }
-
-/*      
-<WebView
-  source={{ uri: 'whatsapp://app' }}
-  style={{ marginTop: 20 }}
-/> */

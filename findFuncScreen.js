@@ -24,21 +24,24 @@ import settingScreen from './page/settingScreen';
 import funcListScreen from './page/funcListScreen';
 import recentUseScreen from './page/recentUseScreen';
 import searchScreen from './page/searchScreen';
+
 import Realm from 'realm';
 import {
   dataSchema,
   appFuncSchema,
-} from './schema/shcema'
+} from './schema/shcema';
+
 export let data;
+
+SQLite.DEBUG(true);
+SQLite.enablePromise(true);
+
 Realm.open({schema:[dataSchema,appFuncSchema]})
 .then(realm => {
   data = JSON.parse(JSON.stringify(realm.objects('data')));
   // console.log(JSON.stringify(data));
   realm.close();
 });
-
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
 
 function HomeScreen({ navigation }) {
   const[modalVisible, setModalVisible] = useState(false);
@@ -166,7 +169,7 @@ function quitApp() {
   RNExitApp.exitApp();
 }
 
-function initData() {
+function initDataBase() {
   Realm.open({schema:[dataSchema,appFuncSchema]})
 .then(realm => { 
   // initial DB
@@ -228,7 +231,6 @@ function initData() {
 export default function App() {
   //앱 최초 실행 관련  
   const[isFirstLaunch,setIsFirstLaunch] = useState(false);
-  const[users,setUsers] = useState([]);
   
   async function init() {
     const FirstLaunch = await checkFirstLaunch();
@@ -238,12 +240,12 @@ export default function App() {
       setIsFirstLaunch(true);
       // askPermissions.askStoragePermission();
       askPermissions.defaultAppAnnounceAlert();
-      initData();
+
+      initDataBase();
     }
   }
+
   useEffect(() => {
-    // 앱 실행 시 데이터 초기화
-    // Realm.deleteFile({schema:[dataSchema,appFuncSchema]});
     init();
   },[]);      
 

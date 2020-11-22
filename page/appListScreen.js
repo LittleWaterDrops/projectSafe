@@ -8,62 +8,15 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
-    Linking,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
-// import { WebView } from 'react-native-webview';
-import AndroidOpenSettings from 'react-native-android-open-settings';
 import appFuncListScreen from './appFuncListScreen';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Realm from 'realm';
-import {
-  dataSchema,
-  appFuncSchema,
-} from '../schema/shcema';
-
-import { data,  } from '../findFuncScreen';
+import { data } from '../findFuncScreen';
 
 export var whatApp;
 
-/*
-export const data = [{
-  appID: '1', 
-  appName: '설정', 
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "와이파이/인터넷연결",
-  },{
-    funcID:'2',
-    funcName: "디스플레이/글씨크기",
-  },{
-    funcID:'3',
-    funcName: "디스플레이/쉬운사용모드",
-  },]},
-  {
-  appID: '2', 
-  appName: '유튜브',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "구독과 좋아요",
-  },{
-    funcID:'2',
-    funcName: "알람 설정까지",
-  }]},
-  {
-  appID: '3', 
-  appName: '카카오톡',
-  authority: false, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "채팅방 나가기",
-  }]},
-
-  [{"appID":1,"appName":"설정","authority":true,"appFunction":[{"funcID":1,"funcName":"와이파이/인터넷연결"},{"funcID":2,"funcName":"디스플레이/글씨크기"},{"funcID":3,"funcName":"디스플레이/쉬운사용모 드"}]},{"appID":2,"appName":"유튜브","authority":true,"appFunction":[{"funcID":1,"funcName":"구독과 좋아요"},{"funcID":2,"funcName":"알람 설정까지"}]},{"appID":3,"appName":"카카오톡","authority":true,"appFunction":[{"funcID":1,"funcName":" 채팅방 나가기"}]}]
-] */
 function thisScreen({navigation}){
   const[showData,setShowData] = useState([]);
   const[searchQuery,setSearchQuery] = useState('');
@@ -141,10 +94,3 @@ export default function appListScreen() {
     </appListStack.Navigator>
   )
 }
-
-
-/*      
-<WebView
-  source={{ uri: 'whatsapp://app' }}
-  style={{ marginTop: 20 }}
-/> */

@@ -6,7 +6,6 @@ import {
   FlatList,
   Text,
   Linking,
-  Alert,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { 
@@ -15,13 +14,12 @@ import {
  } from 'react-native-paper';
 import AndroidOpenSettings from 'react-native-android-open-settings';
 import { whatApp } from './appListScreen';
-import { data,  } from '../findFuncScreen';
+import { data } from '../findFuncScreen';
 import Realm from 'realm';
 import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
-import moment from 'moment';
 
 // export const data = [{
 //   appID: '1', 
@@ -112,7 +110,6 @@ export default class appFuncListScreen extends Component {
 
   }
 
-
   render() {
     return (
       <View
@@ -138,7 +135,7 @@ export default class appFuncListScreen extends Component {
         data={this.state.showData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
         style={{
           flexDirection: 'row',
@@ -157,7 +154,8 @@ export default class appFuncListScreen extends Component {
     );
   }
 }
-export function runTutorial (appName,authority,funcID,funcName) {
+
+export function runTutorial (appName,funcID,funcName) {
   Realm.open({schema:[dataSchema,appFuncSchema]})
   .then(realm => {
     let authorityData = realm.objects('data');

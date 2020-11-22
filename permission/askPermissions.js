@@ -1,21 +1,11 @@
 import React,{
-  useState, 
-  useEffect,
   Component,
 } from 'react';
 import {
     PermissionsAndroid,
     Platform,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    ImageBackground,
-    Modal,
     Alert,
-    Button,
 } from 'react-native';
-import moment from 'moment';
 import Realm from 'realm';
 import {
   dataSchema,

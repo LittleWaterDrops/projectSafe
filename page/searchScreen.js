@@ -5,15 +5,11 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
-    Linking,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
-import {
-  runTutorial,
-} from './appFuncListScreen';
-import Realm from 'realm';
-import { data,  } from '../findFuncScreen';
+import { runTutorial } from './appFuncListScreen';
+import { data } from '../findFuncScreen';
 
 
 
@@ -87,14 +83,14 @@ export default class searchScreen extends Component {
         data={this.state.showData}
         keyExtractor={item => item.funcName}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.authority,item.funcID,item.funcName)}>
+          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-        
+              style={{
+                flexDirection: 'row',
+                padding: 16,
+                alignItems: 'center'
+              }}>
+            </View>
             <Text style={{ fontSize: 22 }}>
               {item.showedNum}. {item.appName} -  {item.funcName}
             </Text>

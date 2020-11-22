@@ -3,9 +3,6 @@ import React, {
 } from 'react';
 import {
   StyleSheet,
-  View,
-  ImageBackground,
-  LogBox,
 } from 'react-native';
 import {
   Switch,
@@ -16,8 +13,6 @@ import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
-// import { data,  } from '../findFuncScreen';
-
 
 export default class settingScreen extends Component {
   constructor(props) {
@@ -123,12 +118,3 @@ export default class settingScreen extends Component {
     )
   }
 }
-const styles = StyleSheet.create({
-  subTitle: {
-    fontSize: 20,
-    textAlign:'center',
-  },
-  appListText: {
-    fontSize: 80,
-  }
-});
