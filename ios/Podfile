@@ -20,6 +20,8 @@ target 'projectSafe' do
 
   pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
 
+  pod 'RealmJS', :path => '../node_modules/realm'
+
   target 'projectSafeTests' do
     inherit! :complete
     # Pods for testing

@@ -6,6 +6,7 @@ import {
   FlatList,
   Text,
   Linking,
+  Alert,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { 
@@ -14,41 +15,47 @@ import {
  } from 'react-native-paper';
 import AndroidOpenSettings from 'react-native-android-open-settings';
 import { whatApp } from './appListScreen';
+import { data,  } from '../findFuncScreen';
+import Realm from 'realm';
+import {
+  dataSchema,
+  appFuncSchema,
+} from '../schema/shcema';
 
-export const data = [{
-  appID: '1', 
-  appName: '설정', 
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "와이파이/인터넷연결",
-  },{
-    funcID:'2',
-    funcName: "디스플레이/글씨크기",
-  },{
-    funcID:'3',
-    funcName: "디스플레이/쉬운사용모드",
-  },]},
-  {
-  appID: '2', 
-  appName: '유튜브',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "구독과 좋아요",
-  },{
-    funcID:'2',
-    funcName: "알람 설정까지",
-  }]},
-  {
-  appID: '3', 
-  appName: '카카오톡',
-  authority: false, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "채팅방 나가기",
-  }]},
-]
+// export const data = [{
+//   appID: '1', 
+//   appName: '설정', 
+//   authority: true, 
+//   appFunction:[{
+//     funcID:'1',
+//     funcName: "와이파이/인터넷연결",
+//   },{
+//     funcID:'2',
+//     funcName: "디스플레이/글씨크기",
+//   },{
+//     funcID:'3',
+//     funcName: "디스플레이/쉬운사용모드",
+//   },]},
+//   {
+//   appID: '2', 
+//   appName: '유튜브',
+//   authority: true, 
+//   appFunction:[{
+//     funcID:'1',
+//     funcName: "구독과 좋아요",
+//   },{
+//     funcID:'2',
+//     funcName: "알람 설정까지",
+//   }]},
+//   {
+//   appID: '3', 
+//   appName: '카카오톡',
+//   authority: false, 
+//   appFunction:[{
+//     funcID:'1',
+//     funcName: "채팅방 나가기",
+//   }]},
+// ]
 
 export default class appFuncListScreen extends Component {
   constructor(props) {
@@ -150,22 +157,43 @@ export default class appFuncListScreen extends Component {
   }
 }
 export function runTutorial (appName,authority,funcID,funcName) {
-  if(authority == true){
-    if(appName == '설정'){
-      settingFunc(funcID,funcName);
-    }
-    if(appName == '유튜브'){
-      youtubeFunc(funcID,funcName);
-    }
-    if(appName == '카카오톡'){
-      kakaotalkFunc(funcID,funcName);
-    }
-  }
-  else {
-    console.log(appName + ' 권한 x ');
-  }
+  Realm.open({schema:[dataSchema,appFuncSchema]})
+  .then(realm => {
+    let authorityData = realm.objects('data');
+    realm.write(() => {
+      if(appName == '설정'){
+        if(authorityData[0].authority == true){
+          settingFunc(funcID,funcName);
+        }
+        else{
+          noAuthority(appName);
+        }
+      }
+      if(appName == '유튜브'){
+        if(authorityData[0].authority == true){
+          youtubeFunc(funcID,funcName);
+        }
+        else{
+          noAuthority(appName);
+        }
+      }
+      if(appName == '카카오톡'){
+        if(authorityData[0].authority == true){
+          kakaotalkFunc(funcID,funcName);
+        }
+        else{
+          noAuthority(appName);
+        }
+      }
+
+    });
+    realm.close();
+  });
 }
 
+function noAuthority(appName){
+  alert(appName + ' has no Athority');
+}
 
 export function settingFunc(funcID,funcName) {
 /*  funcID:'1', funcName: "와이파이/인터넷연결",

@@ -24,6 +24,29 @@ import settingScreen from './page/settingScreen';
 import funcListScreen from './page/funcListScreen';
 import resentUseScreen from './page/resentUseScreen';
 import searchScreen from './page/searchScreen';
+import Realm from 'realm';
+import {
+  dataSchema,
+  appFuncSchema,
+} from './schema/shcema'
+export let data;
+Realm.open({schema:[dataSchema,appFuncSchema]})
+.then(realm => {
+  // realm.write(() => {
+  //   realm.create('data', {
+  //     appID: 3, 
+  //     appName: '카카오톡', 
+  //     authority: false, 
+  //     appFunction: [{
+  //       funcID: 1,
+  //       funcName: "채팅방 나가기",
+  //     },]
+  //   });
+  // });
+  data = JSON.parse(JSON.stringify(realm.objects('data')));
+  // console.log((JSON.stringify(data)));
+  realm.close();
+});
 
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
@@ -154,6 +177,7 @@ function quitApp() {
   RNExitApp.exitApp();
 }
 
+  
 export default function App() {
   //앱 최초 실행 관련  
   const[isFirstLaunch,setIsFirstLaunch] = useState(false);
@@ -168,6 +192,7 @@ export default function App() {
     }
   }
   useEffect(() => {
+    
     // askPermissions.askStoragePermission();
     // askPermissions.voiceAnnounceAlert();
 

@@ -1,136 +1,70 @@
-import React, { Component } from 'react';
+import React, {
+  Component,
+} from 'react';
 import {
-    StyleSheet,
-    View,
-    TouchableOpacity,
-    FlatList,
-    Text,
-    Linking,
+  StyleSheet,
+  View,
+  ImageBackground,
+  LogBox,
 } from 'react-native';
-import filter from 'lodash.filter'
-import { Searchbar } from 'react-native-paper';
-// import { WebView } from 'react-native-webview';
-import AndroidOpenSettings from 'react-native-android-open-settings';
+import {
+  Switch,
+  List,
+} from 'react-native-paper';
 
-export const data = [{
-  appID: '1', 
-  appName: '설정', 
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "와이파이/인터넷연결",
-  },{
-    funcID:'2',
-    funcName: "디스플레이/글씨크기",
-  },{
-    funcID:'3',
-    funcName: "디스플레이/쉬운사용모드",
-  },]},
-  {
-  appID: '2', 
-  appName: '유튜브',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "구독과 좋아요",
-  },{
-    funcID:'2',
-    funcName: "알람 설정까지",
-  }]},
-  {
-  appID: '3', 
-  appName: '카카오톡',
-  authority: true, 
-  appFunction:[{
-    funcID:'1',
-    funcName: "채팅방 나가기",
-  }]},
-]
-
-
-export default class appListScreen extends Component {
+export default class settingScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showData: [],
-      searchQuery: '',
+      settingSwitch: false,
+      kakaotalkSwitch: false,
+      youtubeSwitch: false,
     };
   }
-  componentDidMount(){
-    this.setState({showData:data});
-  }
 
-  onChangeSearch = (query) => {
-    this.setState({searchQuery: query});
+  render() { 
+  const toggleSettingSwitch = () => (this.state.settingSwitch == false) ? this.setState({settingSwitch: true}) : this.setState({settingSwitch: false});
+  const toggleKakaotalkSwitch = () => (this.state.kakaotalkSwitch == false) ? this.setState({kakaotalkSwitch: true}) : this.setState({kakaotalkSwitch: false});
+  const toggleYoutubeSwitch = () => (this.state.youtubeSwitch == false) ? this.setState({youtubeSwitch: true}) : this.setState({youtubeSwitch: false});
 
-    const buffer = filter(data, function (findText){
-      return findText.appName === query;
-    });
+  
+  return (
+    <List.Section>
+    <List.Item 
+      title="설정" 
+      left={() => <List.Icon icon="heart"/>} 
+      right={() => 
+    <Switch 
+      value={this.state.settingSwitch} onValueChange={toggleSettingSwitch} 
+    />} 
+    />
+    <List.Item
+      title="유튜브"
+      left={() => <List.Icon icon="youtube"/>}
+      right={() => 
+        <Switch 
+          value={this.state.youtubeSwitch} onValueChange={toggleYoutubeSwitch} 
+        />} 
+    />
+    <List.Item
+      title="카카오톡"
+      left={() => <List.Icon icon="message"/>}
+      right={() => 
+        <Switch 
+        value={this.state.kakaotalkSwitch} onValueChange={toggleKakaotalkSwitch} 
+        />} 
+    />
 
-    if(query == ''){
-      console.log('query null');
-      this.setState({showData:data});
-    }
-    else {
-      this.setState({showData:buffer});
-    }
-
-  }
-
-  runTutorial (appName) {
-    if(appName == '설정'){
-      console.log(appName + ' app is pressed');
-      AndroidOpenSettings.generalSettings();
-    }
-    if(appName == '유튜브'){
-      console.log(appName + ' app is pressed');
-      Linking.openURL('https://youtube.com');
-    }
-    if(appName == '카카오톡'){
-      console.log(appName + ' app is pressed');
-    }
-  }
-
-  render() {
-    return (
-      <View
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 40
-      }}>
-      <Searchbar
-      clearButtonMode= 'while-editing'
-      placeholder='앱 이름 검색'
-      onChangeText={this.onChangeSearch}
-      value={this.state.searchQuery}
-      />
-      <FlatList
-        data={this.state.showData}
-        keyExtractor={item => item.appID}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => this.runTutorial(item.appName)}>
-            <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-            <Text style={{ fontSize: 22 }}>
-              {item.appID}.  {item.appName}
-            </Text>
-          </TouchableOpacity>
-
-        )}
-      />
-    </View>
-    );
+    </List.Section>
+    )
   }
 }
-
-/*      
-<WebView
-  source={{ uri: 'whatsapp://app' }}
-  style={{ marginTop: 20 }}
-/> */
+const styles = StyleSheet.create({
+  subTitle: {
+    fontSize: 20,
+    textAlign:'center',
+  },
+  appListText: {
+    fontSize: 80,
+  }
+});

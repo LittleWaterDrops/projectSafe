@@ -10,9 +10,11 @@ import {
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
 import {
-  data,
   runTutorial,
 } from './appFuncListScreen';
+import Realm from 'realm';
+import { data,  } from '../findFuncScreen';
+
 
 
 export default class searchScreen extends Component {
