@@ -2,13 +2,15 @@ import 'react-native-gesture-handler';
 import React,{
   useState, 
   useEffect,
+  Image
 } from 'react';
 import {
     StyleSheet,
     Text,
     View,
     TouchableOpacity,
-    ImageBackground,
+    //ImageBackground,
+	ScrollView,
     Modal,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
@@ -64,14 +66,14 @@ function HomeScreen({ navigation }) {
           <Text style={styles.modalText}>앱을 정말 종료하시겠습니까?</Text>
 
           <TouchableOpacity
-            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+            style={{ ...styles.openButton, backgroundColor: "#032340" }}
             onPress={() => quitApp()}
           >
             <Text style={styles.textStyle}>예</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+            style={{ ...styles.openButton, backgroundColor: "#032340" }}
             onPress={() => setModalVisible(!modalVisible)}
           >
             <Text style={styles.textStyle}>아니오</Text>
@@ -83,13 +85,14 @@ function HomeScreen({ navigation }) {
         ></TouchableOpacity>
       </Modal>
       
-      <ImageBackground
+      <View
         resizeMode = 'contain'
-        style = {{height:'100%',width:'100%'}}
-        source = {require('./page_image/FG_function_find.png')}
+        style = {{height:'100%',width:'100%',justifyContent:"center", alignItems:"center",backgroundColor:"#032340", paddingTop:"10%"}}
+        //source = {require('./page_image/FG_function_find.png')}
       >
+	  <ScrollView style={{width:"100%", height:"100%"}}>
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#FFFFFF'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('최근 / 자주 사용')} 
         >
         <Text style={styles.buttonText}> 
@@ -98,7 +101,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#F1F9FF'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('기능 별로 보기')} 
         >
         <Text style={styles.buttonText}> 
@@ -107,7 +110,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#BCE0FD'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 별로 보기')} 
         >
         <Text style={styles.buttonText}> 
@@ -116,7 +119,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#7FC4FD'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('검색')} 
         >
         <Text style={styles.buttonText}> 
@@ -125,7 +128,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#2699FB'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 리스트 설정')} 
         >
         <Text style={styles.buttonText}> 
@@ -134,14 +137,15 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
       
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#0077FF'}]}
+        style={[styles.menuButton]}
         onPress={() => setModalVisible(true)} 
         >
         <Text style={styles.buttonText}> 
         앱 종료
         </Text>
       </TouchableOpacity>
-      </ImageBackground>
+	  </ScrollView>		
+      </View>
     </View> 
   );
 }
@@ -258,11 +262,18 @@ export default function App() {
 
 const styles = StyleSheet.create({
   menuButton: {
-    flex: 1/6,
+    height: 120,
+	width: "100%",
+	backgroundColor: "#05365B",
+	justifyContent: 'center',
+	margin:"1%",
+	borderRadius: 10
   },
   buttonText: {
-    color: 'black',
-    fontSize: 21,
+    color: '#F2F2F2',	
+	fontFamily: 'BCcardB',
+    fontSize: 20,
+	textAlign: "center"
   },
   modalBackground: {
     flex: 0.5,
@@ -300,6 +311,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     fontWeight: "normal",
     fontSize: 15,
+	fontFamily: 'BCcardL',
     color: 'gray',
     textAlign: "center",
   }
