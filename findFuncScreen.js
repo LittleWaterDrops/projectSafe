@@ -31,107 +31,12 @@ import {
 } from './schema/shcema'
 export let data;
 Realm.open({schema:[dataSchema,appFuncSchema]})
-.then(realm => { /*
-  realm.write(() => {
-    realm.create('data', {
-      appID: 1, 
-      appName: '설정', 
-      authority: true, 
-      appFunction:[{
-        funcID: 1,
-        funcName: "와이파이/인터넷연결",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },{
-        funcID: 2,
-        funcName: "디스플레이/글씨크기",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },{
-        funcID: 3,
-        funcName: "디스플레이/쉬운사용모드",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },]
-    });
-    realm.create('data', {
-      appID: 2, 
-      appName: '유튜브',
-      authority: true, 
-      appFunction:[{
-        funcID: 1,
-        funcName: "구독과 좋아요",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },{
-        funcID: 2,
-        funcName: "알람 설정까지",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      }]
-    });
-    realm.create('data', {
-      appID: 3, 
-      appName: '카카오톡',
-      authority: false, 
-      appFunction:[{
-        funcID: 1,
-        funcName: "채팅방 나가기",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      }]
-    });
-  });*/
+.then(realm => {
   data = JSON.parse(JSON.stringify(realm.objects('data')));
   // console.log(JSON.stringify(data));
   realm.close();
 });
-/* In DB, data = [{
-  appID: 1, 
-  appName: '설정', 
-  authority: true, 
-  appFunction:[{
-    funcID: 1,
-    funcName: "와이파이/인터넷연결",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  },{
-    funcID: 2,
-    funcName: "디스플레이/글씨크기",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  },{
-    funcID: 3,
-    funcName: "디스플레이/쉬운사용모드",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  },]},
-  {
-  appID: 2, 
-  appName: '유튜브',
-  authority: true, 
-  appFunction:[{
-    funcID: 1,
-    funcName: "구독과 좋아요",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  },{
-    funcID: 2,
-    funcName: "알람 설정까지",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  }]},
-  {
-  appID: 3, 
-  appName: '카카오톡',
-  authority: false, 
-  appFunction:[{
-    funcID: 1,
-    funcName: "채팅방 나가기",
-    funcUsedCount: 0,
-    funcUsedDate: 0,
-  }]},
-] */
+
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
 
@@ -261,6 +166,64 @@ function quitApp() {
   RNExitApp.exitApp();
 }
 
+function initData() {
+  Realm.open({schema:[dataSchema,appFuncSchema]})
+.then(realm => { 
+  // initial DB
+  realm.write(() => {
+    realm.create('data', {
+      appID: 1, 
+      appName: '설정', 
+      authority: true, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "와이파이/인터넷연결",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 2,
+        funcName: "디스플레이/글씨크기",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 3,
+        funcName: "디스플레이/쉬운사용모드",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },]
+    });
+    realm.create('data', {
+      appID: 2, 
+      appName: '유튜브',
+      authority: true, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "구독과 좋아요",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      },{
+        funcID: 2,
+        funcName: "알람 설정까지",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      }]
+    });
+    realm.create('data', {
+      appID: 3, 
+      appName: '카카오톡',
+      authority: false, 
+      appFunction:[{
+        funcID: 1,
+        funcName: "채팅방 나가기",
+        funcUsedCount: 0,
+        funcUsedDate: 0,
+      }]
+    });
+  });
+  data = JSON.parse(JSON.stringify(realm.objects('data')));
+  realm.close();
+});
+}
   
 export default function App() {
   //앱 최초 실행 관련  
@@ -273,96 +236,14 @@ export default function App() {
 
     if(FirstLaunch){
       setIsFirstLaunch(true);
+      // askPermissions.askStoragePermission();
+      askPermissions.defaultAppAnnounceAlert();
+      initData();
     }
   }
   useEffect(() => {
     // 앱 실행 시 데이터 초기화
     // Realm.deleteFile({schema:[dataSchema,appFuncSchema]});
-
-    // askPermissions.askStoragePermission();
-    // askPermissions.voiceAnnounceAlert();
-
-    /*
-    const db = SQLite.openDatabase(
-    {
-      name: 'testDB.db',
-      location:'default',
-      createFromLocation: '~www/testDB.db',
-    },() => {console.log('yes');}, error => {console.log(error);});
-
-    (DB)=>{
-      console.log("success to open DB");
-
-      DB.transaction(tx => {
-        tx.executeSql(`DROP TABLE authority`)
-        .then(() => {
-          console.log('sqlite DROP TABLE done');
-        })
-        .catch((error) => {
-          console.log('sqlite DROP TABLE error: ', error);
-        });
-      }
-      )
-      .then(() => {
-        console.log('create table transaction done');
-      })
-      .catch((error) => {
-        console.log('create table transaction fail: ', error);
-      });
-
-      DB.transaction(tx => {
-        tx.executeSql(`CREATE TABLE IF NOT EXISTS authority (
-          appname TEXT,
-          appchange TEXT
-        )`)
-        .then(() => {
-          console.log('sqlite CREATE TABLE done');
-        })
-        .catch((error) => {
-          console.log('sqlite CREATE TABLE error: ', error);
-        });
-      }
-      )
-      .then(() => {
-        console.log('create table transaction done');
-      })
-      .catch((error) => {
-        console.log('create table transaction fail: ', error);
-      });
-      /*
-      DB.transaction(tx => {
-        tx.executeSql(`INSERT INTO authority (appname) VALUES ("Setting")`)
-        .then(() => {
-          console.log('sqlite INSERT TABLE done');
-        })
-        .catch((error) => {
-          console.log('sqlite INSERT TABLE error: ', error);
-        });
-      })
-     DB.transaction(tx => {
-        tx.executeSql('SELECT * FROM authority',[],(tx,results) => {
-          const rows = results.rows;
-          let user = [];
-
-          for (let i = 0; i <row.length;i++){
-            user.push({
-              ...rows.item(i),
-            });
-          }
-          
-          setUsers(user);
-          console.warn(users);
-        })
-        .then(() => {
-          console.log('sqlite SELECT TABLE done');
-        })
-        .catch((error) => {
-          console.log('sqlite SELECT TABLE error: ', error);
-        });
-      }) */
-
-
-
     init();
   },[]);      
 

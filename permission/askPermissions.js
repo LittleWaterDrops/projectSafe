@@ -1,6 +1,7 @@
 import React,{
   useState, 
   useEffect,
+  Component,
 } from 'react';
 import {
     PermissionsAndroid,
@@ -15,9 +16,19 @@ import {
     Button,
 } from 'react-native';
 import moment from 'moment';
+import Realm from 'realm';
+import {
+  dataSchema,
+  appFuncSchema,
+} from '../schema/shcema';
 
-export class askPermissions {
-  
+export class askPermissions extends Component  {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkAuthority: false,
+    };
+  }
   askStoragePermission = async function () {
     if (Platform.OS === 'android') {  
       const granted = await PermissionsAndroid.request(
@@ -29,44 +40,46 @@ export class askPermissions {
         buttonNegative: "아니요"
       }
       );
-      // if(granted === PermissionsAndroid.RESULTS.GRANTED){
-      //   alert("yes");
-      // }else {
-      //   alert("no");
-      // }
     }
   }
-  voiceAnnounceAlert () {
-    Alert.alert(
-      "음성 안내",
-      "음성 안내를 사용하시겠습니까?",
-      [
-        {
-          text: "사용함",
-          onPress: () => {console.log("사용함")},
-        },
-        { text: "사용안함", onPress: () => {console.log("사용안함")} }
-      ],
-      { cancelable: false }
-    );
-  }
 
-  defaultAppAnnounceAlert () {
+  checkAuthority (bool) {
+    Realm.open({schema:[dataSchema,appFuncSchema]})
+    .then(realm => {
+      realm.write(() => {
+        let data = realm.objects('data');
+          for(let i = 0; i < data.length; i++){
+            data[i].authority = bool;
+          }
+      });
+    });  
+    if(bool == false){
+      alert(' \"기본 앱\" (설정, 유튜브, 카카오톡) 안내 권한이 부여되지 않았습니다.\n\n 안내 사용을 원할 시 \'앱 리스트 설정\'에서 해당 앱에 대해 안내 권한 부여 부탁드립니다.\n');
+    } 
+    else {
+      alert(' \"기본 앱\" (설정, 유튜브, 카카오톡) 안내 권한이 부여되었습니다.\n');
+
+    } 
+  }
+  
+  defaultAppAnnounceAlert = function () {
+
     Alert.alert(
       "기본앱 안내",
-      "기본앱(카카오톡,유튜브,설정) 안내를 사용하시겠습니까?",
+      "기본앱 (설정, 유튜브, 카카오톡) 안내를 사용하시겠습니까?",
       [
         {
           text: "사용함",
-          onPress: () => {console.log("사용함")},
+          onPress: () => { this.checkAuthority(true) },
         },
-        { text: "사용안함", onPress: () => {console.log("사용안함")} }
+        { text: "사용안함", onPress: () => {  this.checkAuthority(false) } 
+        },
       ],
       { cancelable: false }
     );
   }
 
-
+    
 }
 const askPermissionsClass = new askPermissions();
 export default askPermissionsClass;

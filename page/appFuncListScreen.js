@@ -171,7 +171,7 @@ export function runTutorial (appName,authority,funcID,funcName) {
         }
       }
       if(appName == '유튜브'){
-        if(authorityData[0].authority == true){
+        if(authorityData[1].authority == true){
           youtubeFunc(funcID,funcName);
         }
         else{
@@ -179,7 +179,7 @@ export function runTutorial (appName,authority,funcID,funcName) {
         }
       }
       if(appName == '카카오톡'){
-        if(authorityData[0].authority == true){
+        if(authorityData[2].authority == true){
           kakaotalkFunc(funcID,funcName);
         }
         else{
@@ -187,12 +187,11 @@ export function runTutorial (appName,authority,funcID,funcName) {
         }
       }
     });
-    // realm.close();
   });
 }
 
 function noAuthority(appName){
-  alert(appName + ' has no Athority');
+  alert('\"' + appName + '\"' + ' 앱은 안내 권한이 부여되지 않았습니다.\n\n \'앱 리스트 설정\'에서 해당 앱에 대해 안내 권한 부여 후 재시도 부탁드립니다.\n');
 }
 
 export function settingFunc(funcID,funcName) {
@@ -227,18 +226,32 @@ export function settingFunc(funcID,funcName) {
     });
     realm.close();
   });
-
 }
 
 export function youtubeFunc(funcID,funcName) {
   console.log('youtube / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
-  Linking.openURL('https://youtube.com');
+  Realm.open({schema:[dataSchema,appFuncSchema]})
+  .then(realm => {
+    let funcUsed = realm.objects('data')[1].appFunction[funcID-1];
+    realm.write(() => {
+      if(funcID == 1){
+        let date = new Date().getTime();
+        funcUsed.funcUsedCount += 1,
+        funcUsed.funcUsedDate = date,
+        Linking.openURL('https://youtube.com');
+      }
+      else if(funcID == 2){
+        let date = new Date().getTime();
+        funcUsed.funcUsedCount += 1,
+        funcUsed.funcUsedDate = date,
+        Linking.openURL('https://youtube.com');
+      }
+    });
+    realm.close();
+  });
 }
 
 export function kakaotalkFunc(funcID,funcName) {
   console.log('kakaotalk / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
+  alert("KaKaotalk 기능은 개발 중입니다.\n 양해 부탁드립니다.\n");
 }
-/*
-AndroidOpenSettings.generalSettings();
-Linking.openURL('https://youtube.com');
-*/
