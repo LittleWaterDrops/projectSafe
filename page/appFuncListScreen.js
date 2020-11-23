@@ -122,6 +122,7 @@ export default class appFuncListScreen extends Component {
       style={{
         textAlign:'center',
         marginBottom:20,
+		fontFamily:"BCcardL",
       }}>
         {whatApp + " 앱 기능 리스트"}
       </Title>
@@ -143,7 +144,7 @@ export default class appFuncListScreen extends Component {
           alignItems: 'center'
         }}></View>
         
-            <Text style={{ fontSize: 22 }}>
+            <Text style={{ fontSize: 22, fontFamily:"BCcardL" }}>
               {item.showedNum}. {item.funcName}
             </Text>
           </TouchableOpacity>

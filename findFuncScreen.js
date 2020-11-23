@@ -18,7 +18,6 @@ import RNExitApp from 'react-native-exit-app';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SQLite from 'react-native-sqlite-storage';
-
 import checkFirstLaunch from './permission/checkFirstLaunch';
 import askPermissions from './permission/askPermissions';
 import appListScreen from './page/appListScreen';
@@ -163,14 +162,35 @@ function MyStack() {
       SplashScreen.hide();
   }, 100);
 
-  return (
+  return (	
     <Stack.Navigator>
       <Stack.Screen name=" " component={HomeScreen} options = {{headerShown: false}}/>
-      <Stack.Screen name="앱 별로 보기" component={appListScreen}  options = {{headerShown: false}} />
-      <Stack.Screen name="앱 리스트 설정" component={settingScreen} />
-      <Stack.Screen name="기능 별로 보기" component={funcListScreen} />
-      <Stack.Screen name="최근 / 자주 사용" component={recentUseScreen} />
-      <Stack.Screen name="검색" component={searchScreen} />
+      <Stack.Screen name="앱 별로 보기" component={appListScreen}   options = {{headerShown: false}}
+		  />
+      <Stack.Screen name="앱 리스트 설정" component={settingScreen}
+		options = {{
+			headerStyle: {backgroundColor: '#05365B',},
+			headerTintColor: '#fff',
+			headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="기능 별로 보기" component={funcListScreen}
+		options = {{
+			headerStyle: {backgroundColor: '#05365B',},
+			headerTintColor: '#fff',
+			headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="최근 / 자주 사용" component={recentUseScreen}
+		options = {{
+			headerStyle: {backgroundColor: '#05365B',},
+			headerTintColor: '#fff',
+			headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="검색" component={searchScreen}
+		options = {{
+			headerStyle: {backgroundColor: '#05365B',},
+			headerTintColor: '#fff',
+			headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
     </Stack.Navigator>
   );
 }
