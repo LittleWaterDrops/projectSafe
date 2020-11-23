@@ -88,14 +88,15 @@ export default class appFuncListScreen extends Component {
       style={{
         textAlign:'center',
         marginBottom:20,
+		    fontFamily:"BCcardL",
       }}>
         {whatApp + " 앱 기능 리스트"}
       </Title>
       <Searchbar
-      clearButtonMode= 'while-editing'
-      placeholder='앱 이름 검색'
-      onChangeText={this.onChangeSearch}
-      value={this.state.searchQuery}
+        clearButtonMode= 'while-editing'
+        placeholder='앱 이름 검색'
+        onChangeText={this.onChangeSearch}
+        value={this.state.searchQuery}
       />
       <FlatList
         data={this.state.showData}
@@ -103,17 +104,16 @@ export default class appFuncListScreen extends Component {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
             <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
+              style={{
+                flexDirection: 'row',
+                padding: 16,
+                alignItems: 'center'
+            }}></View>
         
-            <Text style={{ fontSize: 22 }}>
+            <Text style={{ fontSize: 22, fontFamily:"BCcardL" }}>
               {item.showedNum}. {item.funcName}
             </Text>
           </TouchableOpacity>
-
         )}
       />
     </View>

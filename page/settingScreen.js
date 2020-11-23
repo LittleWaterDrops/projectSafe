@@ -37,7 +37,7 @@ export default class settingScreen extends Component {
     });
   }
 
-  render() { 
+render() { 
   const toggleSettingSwitch = () => {
     Realm.open({schema:[dataSchema,appFuncSchema]})
     .then(realm => {
@@ -89,32 +89,34 @@ export default class settingScreen extends Component {
   
   return (
     <List.Section>
-    <List.Item 
-      title="설정" 
-      left={() => <List.Icon icon="heart"/>} 
-      right={() => 
-    <Switch 
-      value={this.state.settingSwitch} onValueChange={toggleSettingSwitch} 
-    />} 
-    />
-    <List.Item
-      title="유튜브"
-      left={() => <List.Icon icon="youtube"/>}
-      right={() => 
-        <Switch 
-          value={this.state.youtubeSwitch} onValueChange={toggleYoutubeSwitch} 
-        />} 
-    />
-    <List.Item
-      title="카카오톡"
-      left={() => <List.Icon icon="message"/>}
-      right={() => 
-        <Switch 
-        value={this.state.kakaotalkSwitch} onValueChange={toggleKakaotalkSwitch} 
-        />} 
-    />
-
-    </List.Section>
+      <List.Item 
+        title="설정" 
+        left={() => <List.Icon icon="heart"/>} 
+        right={() => 
+          <Switch 
+            value={this.state.settingSwitch} onValueChange={toggleSettingSwitch} 
+          />
+        } 
+      />
+      <List.Item
+        title="유튜브"
+        left={() => <List.Icon icon="youtube"/>}
+        right={() => 
+          <Switch 
+            value={this.state.youtubeSwitch} onValueChange={toggleYoutubeSwitch} 
+          />
+        } 
+      />
+      <List.Item
+        title="카카오톡"
+        left={() => <List.Icon icon="message"/>}
+        right={() => 
+          <Switch 
+          value={this.state.kakaotalkSwitch} onValueChange={toggleKakaotalkSwitch} 
+          />
+        } 
+      />
+      </List.Section>
     )
   }
 }

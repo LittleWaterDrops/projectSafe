@@ -72,8 +72,9 @@ LocalNoti = () => {
       channelId: "com.projectsafe", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
       autoCancel: true,
       bigText:
-        'This is local notification demo in React Native app. Only shown, when expanded.',
-      subText: 'Local Notification Demo',
+        'bigText',
+      subText: 'subText',
+      bigPictureUrl: 'http://localhost:8081/notification/minion.jpg',
       title: 'Local Notification Title',
       message: 'Expand me to see more',
       vibrate: true,

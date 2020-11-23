@@ -4,19 +4,19 @@ import React,{
   useEffect,
 } from 'react';
 import {
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    ImageBackground,
-    Modal,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+	ScrollView,
+  Modal,
+	Image,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import RNExitApp from 'react-native-exit-app';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SQLite from 'react-native-sqlite-storage';
-
 import checkFirstLaunch from './permission/checkFirstLaunch';
 import askPermissions from './permission/askPermissions';
 import appListScreen from './page/appListScreen';
@@ -64,14 +64,14 @@ function HomeScreen({ navigation }) {
           <Text style={styles.modalText}>앱을 정말 종료하시겠습니까?</Text>
 
           <TouchableOpacity
-            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+            style={{ ...styles.openButton, backgroundColor: "#032340" }}
             onPress={() => quitApp()}
           >
             <Text style={styles.textStyle}>예</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+            style={{ ...styles.openButton, backgroundColor: "#032340" }}
             onPress={() => setModalVisible(!modalVisible)}
           >
             <Text style={styles.textStyle}>아니오</Text>
@@ -83,65 +83,72 @@ function HomeScreen({ navigation }) {
         ></TouchableOpacity>
       </Modal>
       
-      <ImageBackground
+      <View
         resizeMode = 'contain'
-        style = {{height:'100%',width:'100%'}}
-        source = {require('./page_image/FG_function_find.png')}
+        style = {{height:'100%',width:'100%',justifyContent:"center", alignItems:"center",backgroundColor:"#032340", paddingTop:"10%"}}
       >
+	  <ScrollView style={{width:"100%", height:"100%"}}>
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#FFFFFF'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('최근 / 자주 사용')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/clock.png')} />
         <Text style={styles.buttonText}> 
         최근 / 자주 사용
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#F1F9FF'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('기능 별로 보기')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/list.png')} />
         <Text style={styles.buttonText}> 
         기능 별로 보기
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#BCE0FD'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 별로 보기')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/app.png')} />
         <Text style={styles.buttonText}> 
         앱 별로 보기
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#7FC4FD'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('검색')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/search.png')} />
         <Text style={styles.buttonText}> 
         검색
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#2699FB'}]}
+        style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 리스트 설정')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/setting.png')} />
         <Text style={styles.buttonText}> 
           앱 리스트 설정
         </Text>
       </TouchableOpacity>
       
       <TouchableOpacity
-        style={[styles.menuButton, {backgroundColor: '#0077FF'}]}
+        style={[styles.menuButton]}
         onPress={() => setModalVisible(true)} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/quit.png')} />
         <Text style={styles.buttonText}> 
         앱 종료
         </Text>
       </TouchableOpacity>
-      </ImageBackground>
+	  </ScrollView>		
+      </View>
     </View> 
   );
 }
@@ -153,14 +160,35 @@ function MyStack() {
       SplashScreen.hide();
   }, 100);
 
-  return (
+  return (	
     <Stack.Navigator>
       <Stack.Screen name=" " component={HomeScreen} options = {{headerShown: false}}/>
-      <Stack.Screen name="앱 별로 보기" component={appListScreen}  options = {{headerShown: false}} />
-      <Stack.Screen name="앱 리스트 설정" component={settingScreen} />
-      <Stack.Screen name="기능 별로 보기" component={funcListScreen} />
-      <Stack.Screen name="최근 / 자주 사용" component={recentUseScreen} />
-      <Stack.Screen name="검색" component={searchScreen} />
+      <Stack.Screen name="앱 별로 보기" component={appListScreen}   options = {{headerShown: false}}
+		  />
+      <Stack.Screen name="앱 리스트 설정" component={settingScreen}
+		    options = {{
+			    headerStyle: {backgroundColor: '#05365B',},
+			    headerTintColor: '#fff',
+			    headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="기능 별로 보기" component={funcListScreen}
+        options = {{
+          headerStyle: {backgroundColor: '#05365B',},
+          headerTintColor: '#fff',
+          headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="최근 / 자주 사용" component={recentUseScreen}
+        options = {{
+          headerStyle: {backgroundColor: '#05365B',},
+          headerTintColor: '#fff',
+          headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
+      <Stack.Screen name="검색" component={searchScreen}
+        options = {{
+          headerStyle: {backgroundColor: '#05365B',},
+          headerTintColor: '#fff',
+          headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		  }}/>
     </Stack.Navigator>
   );
 }
@@ -250,7 +278,6 @@ export default function App() {
   }
 
   useEffect(() => {
-
     init();
   },[]);      
 
@@ -263,11 +290,24 @@ export default function App() {
 
 const styles = StyleSheet.create({
   menuButton: {
-    flex: 1/6,
+    height: 120,
+    width: "100%",
+    backgroundColor: "#05365B",
+    justifyContent: 'center',
+    margin:"1%",
+    borderRadius: 10,
+    alignItems:"center"
+  },
+  buttonImage: {
+  	  height: 50,
+      width: 50,
+      marginBottom: 10,
   },
   buttonText: {
-    color: 'black',
-    fontSize: 21,
+    color: '#F2F2F2',	
+	  fontFamily: 'BCcardB',
+    fontSize: 20,
+	  textAlign: "center"
   },
   modalBackground: {
     flex: 0.5,
@@ -305,6 +345,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     fontWeight: "normal",
     fontSize: 15,
+	fontFamily: 'BCcardL',
     color: 'gray',
     textAlign: "center",
   }

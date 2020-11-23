@@ -23,6 +23,7 @@
     "react-native-exit-app": "1.1.0",
     "react-native-firebase": "5.6.0",
     "react-native-gesture-handler": "1.8.0",
+    "react-native-material-design": "0.3.7",
     "react-native-paper": "4.4.0",
     "react-native-push-notification": "6.1.3",
     "react-native-reanimated": "1.13.2",

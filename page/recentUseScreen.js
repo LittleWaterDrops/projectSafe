@@ -6,6 +6,7 @@ import {
     FlatList,
     Text,
 } from 'react-native';
+import styles from './style';
 import {
   runTutorial,
 } from './appFuncListScreen';
@@ -83,59 +84,60 @@ export default class recentUseScreen extends Component {
   render() {
     return (
       <View
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 10
-      }}>
-        
-      <Text>최근 사용</Text>
-      <FlatList
-        data={this.state.recentShowData}
-        keyExtractor={item => item.funcName}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
-            <View
-              style={{
-                flexDirection: 'row',
-                padding: 16,
-                alignItems: 'center'
+        style={styles.viewStyle}>
+        <View
+          style={{
+          borderBottomColor: '#979EA6',
+          borderBottomWidth: 1,
+		    }}>
+		      <Text style={styles.textSubtitle}>최근 사용</Text>
+	      </View>
+        <FlatList
+          data={this.state.recentShowData}
+          keyExtractor={item => item.funcName}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                  alignItems: 'center'
+                }}>
+              </View>
+              <Text style={ styles.textList }>
+                {item.appName} -  {item.funcName}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+        <View
+          style={{
+          borderBottomColor: '#979EA6',
+          borderBottomWidth: 1,
+          }}>
+          <Text style={styles.textSubtitle}>자주 사용</Text>
+        </View>
+        <FlatList
+          data={this.state.freqShowData}
+          keyExtractor={item => item.funcName}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                  alignItems: 'center',
               }}>
-            </View>
-            <Text style={{ fontSize: 22 }}>
-              {item.appName} -  {item.funcName}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
-
-      <Text>자주 사용</Text>
-      <FlatList
-        data={this.state.freqShowData}
-        keyExtractor={item => item.funcName}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
-            <View
-              style={{
-                flexDirection: 'row',
-                padding: 16,
-                alignItems: 'center'
-              }}>
-            </View>
-            <Text style={{ fontSize: 22 }}>
-              {item.appName} -  {item.funcName}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+              </View>
+              <Text style={styles.textList}>
+                {item.appName} -  {item.funcName}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     );
   }
 }
-
-/*      
-<WebView
-  source={{ uri: 'whatsapp://app' }}
-  style={{ marginTop: 20 }}
-/> */

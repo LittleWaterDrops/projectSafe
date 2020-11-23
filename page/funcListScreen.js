@@ -10,6 +10,7 @@ import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
 import { runTutorial } from './appFuncListScreen';
 import { data } from '../findFuncScreen';
+import styles from './style';
 
 export default class funcListScreen extends Component {
   constructor(props) {
@@ -65,38 +66,33 @@ export default class funcListScreen extends Component {
   render() {
     return (
       <View
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 40
-      }}>
-      <Searchbar
-      clearButtonMode= 'while-editing'
-      placeholder='앱 이름 검색'
-      onChangeText={this.onChangeSearch}
-      value={this.state.searchQuery}
-      />
-      <FlatList
-        data={this.state.showData}
-        keyExtractor={item => item.funcName}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
-            <View
-        style={{
-          flexDirection: 'row',
-          padding: 16,
-          alignItems: 'center'
-        }}></View>
-        
-            <Text style={{ fontSize: 22 }}>
-              {item.showedNum}. {item.funcName}
-            </Text>
-          </TouchableOpacity>
-
-        )}
-      />
-    </View>
+        style={
+          styles.viewStyle
+      }>
+        <Searchbar
+          clearButtonMode= 'while-editing'
+          placeholder='앱 이름 검색'
+          onChangeText={this.onChangeSearch}
+          value={this.state.searchQuery}
+          style={styles.searchBox}
+        />
+        <FlatList
+          data={this.state.showData}
+          keyExtractor={item => item.funcName}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => runTutorial(item.appName,item.funcID,item.funcName)}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center'
+              }}></View>
+              <Text style={styles.textList}>
+                {item.showedNum}. {item.funcName}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     );
   }
 }

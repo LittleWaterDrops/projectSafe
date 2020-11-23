@@ -9,7 +9,8 @@ import {
     FlatList,
     Text,
 } from 'react-native';
-import filter from 'lodash.filter'
+import styles from './style';
+import filter from 'lodash.filter';
 import { Searchbar } from 'react-native-paper';
 import appFuncListScreen from './appFuncListScreen';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -49,37 +50,31 @@ function thisScreen({navigation}){
 
   return (
     <View
-    style={{
-      flex: 1,
-      paddingHorizontal: 20,
-      paddingVertical: 20,
-      marginTop: 40
-    }}>
-    <Searchbar
-    clearButtonMode= 'while-editing'
-    placeholder='앱 이름 검색'
-    onChangeText={this.onChangeSearch}
-    value={searchQuery}
-    />
-    <FlatList
-      data={showData}
-      keyExtractor={item => item.appName}
-      renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => this.appFuncList(item.appName)}>
-          <View
-      style={{
-        flexDirection: 'row',
-        padding: 16,
-        alignItems: 'center'
-      }}></View>
-          <Text style={{ fontSize: 22 }}>
+      style={styles.viewStyle}>
+      <Searchbar
+        clearButtonMode= 'while-editing'
+        placeholder='앱 이름 검색'
+        onChangeText={this.onChangeSearch}
+        value={searchQuery}
+        style={styles.searchBox}
+      />
+      <FlatList
+        data={showData}
+        keyExtractor={item => item.appName}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => this.appFuncList(item.appName)}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center'
+            }}></View>
+          <Text style={styles.textList}>
             {item.appID}.  {item.appName}
           </Text>
         </TouchableOpacity>
-
-      )}
-    />
-  </View>
+        )}
+      />
+    </View>
   );
 }
 
@@ -89,8 +84,18 @@ export default function appListScreen() {
 
   return (
     <appListStack.Navigator>
-    <appListStack.Screen name="앱 별로 보기" component={thisScreen}/>
-    <appListStack.Screen name="앱 기능 보기" component={appFuncListScreen}/>
+    <appListStack.Screen name="앱 별로 보기" component={thisScreen}
+      options = {{
+        headerStyle: {backgroundColor: '#05365B',},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		}}/>
+    <appListStack.Screen name="앱 기능 보기" component={appFuncListScreen}
+      options = {{
+        headerStyle: {backgroundColor: '#05365B',},
+        headerTintColor: '#fff',
+        headerTitleStyle: {fontWeight: 'bold', fontFamily:'BCcardB', fontSize:18},
+		}}/>
     </appListStack.Navigator>
   )
 }
