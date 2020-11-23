@@ -73,7 +73,7 @@ export default class funcListScreen extends Component {
       }>
         <Searchbar
           clearButtonMode= 'while-editing'
-          placeholder='앱 이름 검색'
+          placeholder='앱 기능 검색'
           onChangeText={this.onChangeSearch}
           value={this.state.searchQuery}
           style={styles.searchBox}

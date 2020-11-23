@@ -6,6 +6,7 @@ import {
   FlatList,
   Text,
   Linking,
+  Image,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { 
@@ -21,6 +22,7 @@ import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
+import logoSource from '../customAssets/logoSource';
 
 export default class appFuncListScreen extends Component {
   constructor(props) {
@@ -94,7 +96,7 @@ export default class appFuncListScreen extends Component {
       </Title>
       <Searchbar
         clearButtonMode= 'while-editing'
-        placeholder='앱 이름 검색'
+        placeholder='앱 기능 검색'
         onChangeText={this.onChangeSearch}
         value={this.state.searchQuery}
       />
@@ -111,7 +113,7 @@ export default class appFuncListScreen extends Component {
             }}></View>
         
             <Text style={{ fontSize: 22, fontFamily:"BCcardL" }}>
-              {item.showedNum}. {item.funcName}
+              {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.funcName}
             </Text>
           </TouchableOpacity>
         )}
@@ -159,9 +161,8 @@ function noAuthority(appName){
 }
 
 export function settingFunc(funcID,funcName) {
-/*  funcID:'1', funcName: "와이파이/인터넷연결",
-    funcID:'2', funcName: "디스플레이/글씨크기",
-    funcID:'3', funcName: "디스플레이/쉬운사용모드", */
+/*  funcID:'1', funcName: "데이터: 와이파이 없는 곳에서 인터넷 사용하기",
+    funcID:'2', funcName: "디스플레이: 화면 내용 크게 만들기" */
 
   console.log('setting / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
 
@@ -173,8 +174,7 @@ export function settingFunc(funcID,funcName) {
         let date = new Date().getTime();
         funcUsed.funcUsedCount += 1,
         funcUsed.funcUsedDate = date,
-        AndroidOpenSettings.wifiSettings();
-        notification.LocalNoti();
+        AndroidOpenSettings.wirelessSettings();
       }
       else if(funcID == 2){
         let date = new Date().getTime();
@@ -188,12 +188,14 @@ export function settingFunc(funcID,funcName) {
         funcUsed.funcUsedDate = date,
         AndroidOpenSettings.displaySettings();
       }
+      notification.NotiFirst('setting',funcID);
     });
     realm.close();
   });
 }
 
 export function youtubeFunc(funcID,funcName) {
+  /*  funcID:'1', funcName: "채널 구독하기" */
   console.log('youtube / funcID: ' + funcID + ' / funcName: ' + funcName + ' is pressed');
   Realm.open({schema:[dataSchema,appFuncSchema]})
   .then(realm => {
@@ -211,6 +213,7 @@ export function youtubeFunc(funcID,funcName) {
         funcUsed.funcUsedDate = date,
         Linking.openURL('https://youtube.com');
       }
+      notification.NotiFirst('youtube',funcID);
     });
     realm.close();
   });

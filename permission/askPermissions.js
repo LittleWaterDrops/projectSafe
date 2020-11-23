@@ -13,12 +13,7 @@ import {
 } from '../schema/shcema';
 
 export class askPermissions extends Component  {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checkAuthority: false,
-    };
-  }
+
   askStoragePermission = async function () {
     if (Platform.OS === 'android') {  
       const granted = await PermissionsAndroid.request(
@@ -44,10 +39,10 @@ export class askPermissions extends Component  {
       });
     });  
     if(bool == false){
-      alert(' \"기본 앱\" (설정, 유튜브, 카카오톡) 안내 권한이 부여되지 않았습니다.\n\n 안내 사용을 원할 시 \'앱 리스트 설정\'에서 해당 앱에 대해 안내 권한 부여 부탁드립니다.\n');
+      alert(' \"기본 앱\" (설정, 유튜브) 안내 권한이 부여되지 않았습니다.\n\n 안내 사용을 원할 시 \'앱 리스트 설정\'에서 해당 앱에 대해 안내 권한 부여 부탁드립니다.\n');
     } 
     else {
-      alert(' \"기본 앱\" (설정, 유튜브, 카카오톡) 안내 권한이 부여되었습니다.\n');
+      alert(' \"기본 앱\" (설정, 유튜브) 안내 권한이 부여되었습니다.\n');
 
     } 
   }
@@ -56,7 +51,7 @@ export class askPermissions extends Component  {
 
     Alert.alert(
       "기본앱 안내",
-      "기본앱 (설정, 유튜브, 카카오톡) 안내를 사용하시겠습니까?",
+      "기본앱 (설정, 유튜브) 안내를 사용하시겠습니까?",
       [
         {
           text: "사용함",

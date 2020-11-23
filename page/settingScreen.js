@@ -22,7 +22,6 @@ export default class settingScreen extends Component {
     this.state = {
       settingSwitch: false,
       youtubeSwitch: false,
-      kakaotalkSwitch: false,
     };
   }
 
@@ -33,7 +32,6 @@ export default class settingScreen extends Component {
         let data = realm.objects('data');
         this.setState({settingSwitch: data[0].authority});
         this.setState({youtubeSwitch: data[1].authority});
-        this.setState({kakaotalkSwitch: data[2].authority});
       });
       realm.close();
     });
@@ -72,22 +70,6 @@ render() {
       realm.close();
     });
   }
-  const toggleKakaotalkSwitch = () => {
-    Realm.open({schema:[dataSchema,appFuncSchema]})
-    .then(realm => {
-      realm.write(() => {
-        if(this.state.kakaotalkSwitch == false){
-          this.setState({kakaotalkSwitch: true});
-          realm.objects('data')[2].authority = true;
-        }
-        else {
-          this.setState({kakaotalkSwitch: false});
-          realm.objects('data')[2].authority = false;
-        }
-      });
-      realm.close();
-    });
-  }
   
   return (
     <List.Section>
@@ -106,15 +88,6 @@ render() {
         right={() => 
           <Switch 
             value={this.state.youtubeSwitch} onValueChange={toggleYoutubeSwitch} 
-          />
-        } 
-      />
-      <List.Item
-        title="카카오톡"
-        left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('카카오톡')}/>}
-        right={() => 
-          <Switch 
-          value={this.state.kakaotalkSwitch} onValueChange={toggleKakaotalkSwitch} 
           />
         } 
       />

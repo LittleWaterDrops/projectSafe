@@ -1,26 +1,44 @@
+import React, { Component } from 'react';
 import PushNotification from "react-native-push-notification";
 import FirebaseApp from 'react-native-firebase';
-export class notification {
 
-notiInit = () => {
+let settingFunc1Noti = [
+  'http://localhost:8081/customAssets/tutorial/setting/func1/internet01.png',
+  'http://localhost:8081/customAssets/tutorial/setting/func1/internet02.png'
+];
+let settingFunc2Noti = [
+  'http://localhost:8081/customAssets/tutorial/setting/func2/display01.png',
+  'http://localhost:8081/customAssets/tutorial/setting/func2/display02.png',
+  'http://localhost:8081/customAssets/tutorial/setting/func2/display03.png'
+
+];
+let youtubeFunc1Noti = [
+  'http://localhost:8081/customAssets/tutorial/youtube/func1/youtube01.png',
+  'http://localhost:8081/customAssets/tutorial/youtube/func1/youtube02.png',
+  'http://localhost:8081/customAssets/tutorial/youtube/func1/youtube03.png',
+  'http://localhost:8081/customAssets/tutorial/youtube/func1/youtube04.png',
+];
+
+export class notification extends Component {
+  notiInit = () => {
     if(FirebaseApp.apps.length === 0){
-        FirebaseApp.initializeApp({});
+      FirebaseApp.initializeApp({});
     }
 
     PushNotification.createChannel(
-        {
-          channelId: "com.projectsafe", // (required)
-          channelName: "com.projectsafe", // (required)
-          channelDescription: "tutorialApp channel", // (optional) default: undefined.
-          soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
-          importance: 4, // (optional) default: 4. Int value of the Android notification importance
-          vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-        },
+      {
+        channelId: "com.projectsafe", // (required)
+        channelName: "com.projectsafe", // (required)
+        channelDescription: "tutorialApp channel", // (optional) default: undefined.
+        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        importance: 4, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
         // (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
-      );
-}
+    );
+  }
 
-notiConfig = () => {
+  notiConfig = function() {
     // Must be outside of any component LifeCycle (such as `componentDidMount`).
     PushNotification.configure({
         // (optional) Called when Token is generated (iOS and Android)
@@ -41,9 +59,66 @@ notiConfig = () => {
       
         // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)
         onAction: function (notification) {
-          console.log("ACTION:", notification.action);
-          console.log("NOTIFICATION:", notification);
-      
+          // console.log("ACTION:", notification.action);
+          // console.log("NOTIFICATION:", notification);
+
+          if(notification.bigPictureUrl == settingFunc1Noti[0]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('last', '설정', '연결 - 데이터 사용', settingFunc1Noti[1]);
+            }
+          }
+          if(notification.bigPictureUrl == settingFunc1Noti[1]){
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('first', '설정', '연결 - 데이터 사용', settingFunc1Noti[0]);
+            }
+          }
+
+          if(notification.bigPictureUrl == settingFunc2Noti[0]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('inter', '설정', '디스플레이 - 화면 크기 조절', settingFunc2Noti[1]);
+            }
+          }
+          if(notification.bigPictureUrl == settingFunc2Noti[1]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('last', '설정', '디스플레이 - 화면 크기 조절', settingFunc2Noti[2]);
+            }
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('first', '설정', '디스플레이 - 화면 크기 조절', settingFunc2Noti[0]);
+            }
+          }
+          if(notification.bigPictureUrl == settingFunc2Noti[2]){
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('inter', '설정', '디스플레이 - 화면 크기 조절', settingFunc2Noti[1]);
+            }
+          }
+
+          if(notification.bigPictureUrl == youtubeFunc1Noti[0]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('inter', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[1]);
+            }
+          }
+          if(notification.bigPictureUrl == youtubeFunc1Noti[1]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('inter', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[2]);
+            }
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('first', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[0]);
+            }
+          }
+          if(notification.bigPictureUrl == youtubeFunc1Noti[2]){
+            if(notification.action == '다음'){
+              notificationClass.LocalNoti('last', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[3]);
+            }
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('inter', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[1]);
+            }
+          }
+          if(notification.bigPictureUrl == youtubeFunc1Noti[3]){
+            if(notification.action == '이전'){
+              notificationClass.LocalNoti('inter', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[2]);
+            }
+          }
+
           // process the action
         },
       
@@ -65,23 +140,80 @@ notiConfig = () => {
          */
         requestPermissions: true,
       });
-}
+  }
 
-LocalNoti = () => {
-    PushNotification.localNotification({
-      channelId: "com.projectsafe", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
-      autoCancel: true,
-      bigText:
-        'bigText',
-      subText: 'subText',
-      bigPictureUrl: 'http://localhost:8081/customAssets/tutorial/minion.jpg',
-      title: 'Local Notification Title',
-      message: 'Expand me to see more',
-      vibrate: true,
-      vibration: 300,
-      playSound: true,
-      soundName: 'default',
-    })
+  LocalNoti (step, appName, title, tutorial) {
+    if(step == 'first'){
+      PushNotification.localNotification({
+        channelId: "com.projectsafe", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
+        autoCancel: true,
+        // bigText: 'bigText',
+        subText: appName,
+        bigPictureUrl: tutorial,
+        title: title,
+        message: '\'다음\' 혹은 \'취소\' 버튼을 눌러 진행해주세요',
+        vibrate: true,
+        vibration: 300,
+        playSound: true,
+        soundName: 'default',
+        actions: ["다음", "취소"],
+        invokeApp: false, 
+      })
+    }
+
+    if(step == 'inter'){
+      PushNotification.localNotification({
+        channelId: "com.projectsafe", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
+        autoCancel: true,
+        // bigText: 'bigText',
+        subText: appName,
+        bigPictureUrl: tutorial,
+        title: title,
+        message:  '\'다음\' 혹은 \'이전\' 버튼을 눌러 진행해주세요',
+        vibrate: true,
+        vibration: 300,
+        playSound: true,
+        soundName: 'default',
+        actions: ["다음", "이전"],
+        invokeApp: false, 
+      })
+    }
+
+    if(step == 'last'){
+      PushNotification.localNotification({
+        channelId: "com.projectsafe", // (required) channelId, if the channel doesn't exist, it will be created with options passed above (importance, vibration, sound). Once the channel is created, the channel will not be update. Make sure your channelId is different if you change these options. If you have created a custom channel, it will apply options of the channel.
+        autoCancel: true,
+        // bigText: 'bigText',
+        subText: appName,
+        bigPictureUrl: tutorial,
+        title: title,
+        message: '\'확인\' 혹은 \'이전\' 버튼을 눌러 진행해주세요',
+        vibrate: true,
+        vibration: 300,
+        playSound: true,
+        soundName: 'default',
+        actions: ["확인", "이전"],
+        invokeApp: false, 
+      })
+    }
+  }
+    
+
+  NotiFirst(appName, funcID){
+    if(appName == 'setting'){
+      if(funcID == 1){
+        notificationClass.LocalNoti('first', '설정', '연결 - 데이터 사용', settingFunc1Noti[0]);
+      }
+      else if(funcID == 2){
+        notificationClass.LocalNoti('first', '설정', '디스플레이 - 화면 크기 조절', settingFunc2Noti[0]);
+      }
+    }
+    if(appName == 'youtube'){
+      if(funcID == 1){
+        notificationClass.LocalNoti('first', '유튜브', '유튜브 - 구독', youtubeFunc1Noti[0]);
+      }
+
+    }
   }
 }
 

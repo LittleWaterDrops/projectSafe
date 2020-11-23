@@ -32,6 +32,8 @@ import {
 
 export let data;
 
+notification.notiConfig();
+
 Realm.open({schema:[dataSchema,appFuncSchema]})
 .then(realm => {
   data = JSON.parse(JSON.stringify(realm.objects('data')));
@@ -204,17 +206,12 @@ function initDataBase() {
       authority: true, 
       appFunction:[{
         funcID: 1,
-        funcName: "와이파이/인터넷연결",
+        funcName: "데이터: 와이파이 없는 곳에서 인터넷 사용하기",
         funcUsedCount: 0,
         funcUsedDate: 0,
       },{
         funcID: 2,
-        funcName: "디스플레이/글씨크기",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },{
-        funcID: 3,
-        funcName: "디스플레이/쉬운사용모드",
+        funcName: "디스플레이: 화면 내용 크게 만들기",
         funcUsedCount: 0,
         funcUsedDate: 0,
       },]
@@ -225,17 +222,12 @@ function initDataBase() {
       authority: true, 
       appFunction:[{
         funcID: 1,
-        funcName: "구독과 좋아요",
-        funcUsedCount: 0,
-        funcUsedDate: 0,
-      },{
-        funcID: 2,
-        funcName: "알람 설정까지",
+        funcName: "채널 구독하기",
         funcUsedCount: 0,
         funcUsedDate: 0,
       }]
     });
-    realm.create('data', {
+    /* realm.create('data', {
       appID: 3, 
       appName: '카카오톡',
       authority: false, 
@@ -245,7 +237,7 @@ function initDataBase() {
         funcUsedCount: 0,
         funcUsedDate: 0,
       }]
-    });
+    }); */
   });
   data = JSON.parse(JSON.stringify(realm.objects('data')));
   realm.close();
@@ -267,7 +259,6 @@ export default function App() {
       askPermissions.defaultAppAnnounceAlert();
       
       notification.notiInit();
-      notification.notiConfig();
       
       initDataBase();
     }
