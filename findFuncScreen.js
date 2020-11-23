@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React,{
   useState, 
   useEffect,
-  Image
 } from 'react';
 import {
     StyleSheet,
@@ -12,6 +11,7 @@ import {
     //ImageBackground,
 	ScrollView,
     Modal,
+	Image,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import RNExitApp from 'react-native-exit-app';
@@ -95,6 +95,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => navigation.navigate('최근 / 자주 사용')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/clock.png')} />
         <Text style={styles.buttonText}> 
         최근 / 자주 사용
         </Text>
@@ -104,6 +105,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => navigation.navigate('기능 별로 보기')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/list.png')} />
         <Text style={styles.buttonText}> 
         기능 별로 보기
         </Text>
@@ -113,6 +115,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 별로 보기')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/app.png')} />
         <Text style={styles.buttonText}> 
         앱 별로 보기
         </Text>
@@ -122,6 +125,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => navigation.navigate('검색')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/search.png')} />
         <Text style={styles.buttonText}> 
         검색
         </Text>
@@ -131,6 +135,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => navigation.navigate('앱 리스트 설정')} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/setting.png')} />
         <Text style={styles.buttonText}> 
           앱 리스트 설정
         </Text>
@@ -140,6 +145,7 @@ function HomeScreen({ navigation }) {
         style={[styles.menuButton]}
         onPress={() => setModalVisible(true)} 
         >
+		<Image style={styles.buttonImage} source={require('./android/app/src/main/res/drawable/quit.png')} />
         <Text style={styles.buttonText}> 
         앱 종료
         </Text>
@@ -267,7 +273,13 @@ const styles = StyleSheet.create({
 	backgroundColor: "#05365B",
 	justifyContent: 'center',
 	margin:"1%",
-	borderRadius: 10
+	borderRadius: 10,
+	alignItems:"center"
+  },
+  buttonImage: {
+  	  height: 50,
+	  width: 50,
+	  marginBottom: 10,
   },
   buttonText: {
     color: '#F2F2F2',	
