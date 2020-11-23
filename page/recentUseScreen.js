@@ -100,8 +100,6 @@ export default class recentUseScreen extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                paddingTop: 0,
-				paddingBottom:20,
 				paddingLeft: 15,
 				paddingRight: 15,
                 alignItems: 'center'
@@ -128,8 +126,6 @@ export default class recentUseScreen extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                paddingTop: 0,
-				paddingBottom:20,
 				paddingLeft: 15,
 				paddingRight: 15,
                 alignItems: 'center',

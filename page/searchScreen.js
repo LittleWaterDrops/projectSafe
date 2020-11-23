@@ -10,6 +10,7 @@ import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
 import { runTutorial } from './appFuncListScreen';
 import { data } from '../findFuncScreen';
+import styles from './style';
 
 
 
@@ -67,18 +68,18 @@ export default class searchScreen extends Component {
   render() {
     return (
       <View
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-        marginTop: 40
-      }}>
+      style={styles.viewStyle}>
       <Searchbar
       clearButtonMode= 'while-editing'
       placeholder='앱 이름 검색'
       onChangeText={this.onChangeSearch}
       value={this.state.searchQuery}
+	  style={styles.searchBox}
       />
+	  <View style={{borderBottomColor:"#979EA6", 
+		borderBottomWidth: 1}}>
+	  <Text style={styles.textSubtitle}> 추천 검색 </Text>
+	  </View>
       <FlatList
         data={this.state.showData}
         keyExtractor={item => item.funcName}
@@ -87,11 +88,10 @@ export default class searchScreen extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                padding: 16,
                 alignItems: 'center'
               }}>
             </View>
-            <Text style={{ fontSize: 22 }}>
+            <Text style={styles.textList}>
               {item.showedNum}. {item.appName} -  {item.funcName}
             </Text>
           </TouchableOpacity>

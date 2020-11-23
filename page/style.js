@@ -3,6 +3,12 @@ module.exports={
     "textList": {
 		fontFamily: "BCcardL",
 		fontSize: 18,
+		paddingLeft: 20,
+		paddingRight:20,
+		paddingTop:20,
+		paddingBottom: 20, 
+		borderBottomColor:"#EEEEEE", 
+		borderBottomWidth: 1
 	},
 
 	"textSubtitle":{
@@ -21,8 +27,9 @@ module.exports={
 	},
 
 	"searchBox":{
-		margin:5,
-		width:"95%"
+		margin:10,
+		width:"95%",
+		height:45
 	}
 
 }

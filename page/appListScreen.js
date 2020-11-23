@@ -50,12 +50,7 @@ function thisScreen({navigation}){
 
   return (
     <View
-    style={{
-      flex: 1,
-      paddingHorizontal: 20,
-      paddingVertical: 20,
-      marginTop: 40
-    }}>
+    style={styles.viewStyle}>
     <Searchbar
     clearButtonMode= 'while-editing'
     placeholder='앱 이름 검색'
@@ -71,10 +66,9 @@ function thisScreen({navigation}){
           <View
       style={{
         flexDirection: 'row',
-        padding: 16,
         alignItems: 'center'
       }}></View>
-          <Text style={{ fontSize: 22 }}>
+          <Text style={styles.textList}>
             {item.appID}.  {item.appName}
           </Text>
         </TouchableOpacity>
