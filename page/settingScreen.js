@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import {
   StyleSheet,
+  Image,
 } from 'react-native';
 import {
   Switch,
@@ -13,6 +14,7 @@ import {
   dataSchema,
   appFuncSchema,
 } from '../schema/shcema';
+import logoSource from '../customAssets/logoSource';
 
 export default class settingScreen extends Component {
   constructor(props) {
@@ -91,7 +93,7 @@ render() {
     <List.Section>
       <List.Item 
         title="설정" 
-        left={() => <List.Icon icon="heart"/>} 
+        left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('설정')}/>}
         right={() => 
           <Switch 
             value={this.state.settingSwitch} onValueChange={toggleSettingSwitch} 
@@ -100,7 +102,7 @@ render() {
       />
       <List.Item
         title="유튜브"
-        left={() => <List.Icon icon="youtube"/>}
+        left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('유튜브')}/>}
         right={() => 
           <Switch 
             value={this.state.youtubeSwitch} onValueChange={toggleYoutubeSwitch} 
@@ -109,7 +111,7 @@ render() {
       />
       <List.Item
         title="카카오톡"
-        left={() => <List.Icon icon="message"/>}
+        left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('카카오톡')}/>}
         right={() => 
           <Switch 
           value={this.state.kakaotalkSwitch} onValueChange={toggleKakaotalkSwitch} 

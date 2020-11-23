@@ -5,12 +5,14 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
+    Image,
 } from 'react-native';
 import filter from 'lodash.filter'
 import { Searchbar } from 'react-native-paper';
 import { runTutorial } from './appFuncListScreen';
 import { data } from '../findFuncScreen';
-import styles from './style';
+import styles from '../customAssets/style';
+import logoSource from '../customAssets/logoSource';
 
 export default class funcListScreen extends Component {
   constructor(props) {
@@ -87,7 +89,7 @@ export default class funcListScreen extends Component {
                   alignItems: 'center'
               }}></View>
               <Text style={styles.textList}>
-                {item.showedNum}. {item.funcName}
+                {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.funcName}
               </Text>
             </TouchableOpacity>
           )}

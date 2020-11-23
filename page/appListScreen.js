@@ -8,8 +8,10 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
+    Image,
 } from 'react-native';
-import styles from './style';
+import styles from '../customAssets/style';
+import logoSource from '../customAssets/logoSource';
 import filter from 'lodash.filter';
 import { Searchbar } from 'react-native-paper';
 import appFuncListScreen from './appFuncListScreen';
@@ -69,7 +71,7 @@ function thisScreen({navigation}){
                 alignItems: 'center'
             }}></View>
           <Text style={styles.textList}>
-            {item.appID}.  {item.appName}
+            {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.appName}
           </Text>
         </TouchableOpacity>
         )}

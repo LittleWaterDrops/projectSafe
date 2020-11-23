@@ -74,7 +74,7 @@ LocalNoti = () => {
       bigText:
         'bigText',
       subText: 'subText',
-      bigPictureUrl: 'http://localhost:8081/notification/minion.jpg',
+      bigPictureUrl: 'http://localhost:8081/customAssets/tutorial/minion.jpg',
       title: 'Local Notification Title',
       message: 'Expand me to see more',
       vibrate: true,

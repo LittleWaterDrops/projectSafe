@@ -5,8 +5,10 @@ import {
     TouchableOpacity,
     FlatList,
     Text,
+    Image,
 } from 'react-native';
-import styles from './style';
+import styles from '../customAssets/style';
+import logoSource from '../customAssets/logoSource';
 import {
   runTutorial,
 } from './appFuncListScreen';
@@ -106,7 +108,7 @@ export default class recentUseScreen extends Component {
                 }}>
               </View>
               <Text style={ styles.textList }>
-                {item.appName} -  {item.funcName}
+                {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.funcName}
               </Text>
             </TouchableOpacity>
           )}
@@ -132,7 +134,7 @@ export default class recentUseScreen extends Component {
               }}>
               </View>
               <Text style={styles.textList}>
-                {item.appName} -  {item.funcName}
+                {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.funcName}
               </Text>
             </TouchableOpacity>
           )}
