@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "585233140599",
+    "firebase_url": "https://projectsafe-11c12.firebaseio.com",
+    "project_id": "projectsafe-11c12",
+    "storage_bucket": "projectsafe-11c12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585233140599:android:09db8b8db4f46e9af22f72",
+        "android_client_info": {
+          "package_name": "com.projectsafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585233140599-figu6109khq29gjopaifl9ut505vbus9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdu_eXDu90R1-_fVVUvaX7TB1GidcYMzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585233140599-figu6109khq29gjopaifl9ut505vbus9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

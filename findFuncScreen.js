@@ -24,7 +24,7 @@ import settingScreen from './page/settingScreen';
 import funcListScreen from './page/funcListScreen';
 import recentUseScreen from './page/recentUseScreen';
 import searchScreen from './page/searchScreen';
-
+import notification from './notification/notification';
 import Realm from 'realm';
 import {
   dataSchema,
@@ -229,6 +229,7 @@ function initDataBase() {
 }
   
 export default function App() {
+
   //앱 최초 실행 관련  
   const[isFirstLaunch,setIsFirstLaunch] = useState(false);
   
@@ -240,12 +241,16 @@ export default function App() {
       setIsFirstLaunch(true);
       // askPermissions.askStoragePermission();
       askPermissions.defaultAppAnnounceAlert();
-
+      
+      notification.notiInit();
+      notification.notiConfig();
+      
       initDataBase();
     }
   }
 
   useEffect(() => {
+
     init();
   },[]);      
 

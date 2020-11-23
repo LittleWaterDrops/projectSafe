@@ -22,6 +22,8 @@ target 'projectSafe' do
 
   pod 'RealmJS', :path => '../node_modules/realm'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
   target 'projectSafeTests' do
     inherit! :complete
     # Pods for testing

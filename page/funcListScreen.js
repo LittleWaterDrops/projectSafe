@@ -11,8 +11,6 @@ import { Searchbar } from 'react-native-paper';
 import { runTutorial } from './appFuncListScreen';
 import { data } from '../findFuncScreen';
 
-
-
 export default class funcListScreen extends Component {
   constructor(props) {
     super(props);

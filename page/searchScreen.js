@@ -102,9 +102,3 @@ export default class searchScreen extends Component {
     );
   }
 }
-
-/*      
-<WebView
-  source={{ uri: 'whatsapp://app' }}
-  style={{ marginTop: 20 }}
-/> */
