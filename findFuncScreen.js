@@ -16,7 +16,6 @@ import SplashScreen from 'react-native-splash-screen';
 import RNExitApp from 'react-native-exit-app';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SQLite from 'react-native-sqlite-storage';
 import checkFirstLaunch from './permission/checkFirstLaunch';
 import askPermissions from './permission/askPermissions';
 import appListScreen from './page/appListScreen';
@@ -32,9 +31,6 @@ import {
 } from './schema/shcema';
 
 export let data;
-
-SQLite.DEBUG(true);
-SQLite.enablePromise(true);
 
 Realm.open({schema:[dataSchema,appFuncSchema]})
 .then(realm => {
