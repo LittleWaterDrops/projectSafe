@@ -23,6 +23,7 @@ import {
   appFuncSchema,
 } from '../schema/shcema';
 import logoSource from '../customAssets/logoSource';
+import styles from '../customAssets/style';
 
 export default class appFuncListScreen extends Component {
   constructor(props) {
@@ -81,25 +82,27 @@ export default class appFuncListScreen extends Component {
   render() {
     return (
       <View
-      style={{
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
-      }}>
-      <Title
-      style={{
-        textAlign:'center',
-        marginBottom:20,
-		    fontFamily:"BCcardL",
-      }}>
-        {whatApp + " 앱 기능 리스트"}
-      </Title>
+      style={
+        styles.viewStyle
+      }>
       <Searchbar
         clearButtonMode= 'while-editing'
         placeholder='앱 기능 검색'
         onChangeText={this.onChangeSearch}
         value={this.state.searchQuery}
+		style={styles.searchBox}
       />
+	  <View style={{
+          borderBottomColor: '#979EA6',
+          borderBottomWidth: 1,
+		    }}>
+		<Title
+		style={
+		styles.textSubtitle
+		}>
+        {whatApp + " 앱 기능 리스트"}
+		</Title>
+	  </View>
       <FlatList
         data={this.state.showData}
         keyExtractor={item => item.funcName}
@@ -108,11 +111,10 @@ export default class appFuncListScreen extends Component {
             <View
               style={{
                 flexDirection: 'row',
-                padding: 16,
                 alignItems: 'center'
             }}></View>
         
-            <Text style={{ fontSize: 22, fontFamily:"BCcardL" }}>
+            <Text style={styles.textList}>
               {<Image style={{width: 20, height: 20}} source={logoSource.setLogo(item.appName)}/>} {item.funcName}
             </Text>
           </TouchableOpacity>
