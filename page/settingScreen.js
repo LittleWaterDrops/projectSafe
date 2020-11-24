@@ -4,6 +4,7 @@ import React, {
 import {
   StyleSheet,
   Image,
+  View
 } from 'react-native';
 import {
   Switch,
@@ -15,6 +16,7 @@ import {
   appFuncSchema,
 } from '../schema/shcema';
 import logoSource from '../customAssets/logoSource';
+import styles from '../customAssets/style';
 
 export default class settingScreen extends Component {
   constructor(props) {
@@ -72,8 +74,14 @@ render() {
   }
   
   return (
+  <View style={
+  	  styles.viewStyle
+  }>
     <List.Section>
       <List.Item 
+		style={
+		  styles.textList
+		}
         title="설정" 
         left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('설정')}/>}
         right={() => 
@@ -83,6 +91,9 @@ render() {
         } 
       />
       <List.Item
+	    style={
+			styles.textList
+		}
         title="유튜브"
         left={() => <Image style={{width: 20, height: 20}} source={logoSource.setLogo('유튜브')}/>}
         right={() => 
@@ -92,6 +103,7 @@ render() {
         } 
       />
       </List.Section>
-    )
-  }
+  </View>
+    ) 
+	}
 }
