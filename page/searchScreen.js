@@ -70,12 +70,10 @@ export default class searchScreen extends Component {
 
     if(query == ''){
       console.log('query null');
-      // this.setState({showData:this.state.changedData});
     }
     else {
       this.setState({showData:buffer});
     }
-
 
     let setArr = [];
     let youArr = [];
@@ -89,10 +87,8 @@ export default class searchScreen extends Component {
 
       }
     }
-      this.setState({showSettingData: setArr});
-      this.setState({showYoutubeData: youArr});
-      console.log(setArr);
-      console.log(youArr);
+    this.setState({showSettingData: setArr});
+    this.setState({showYoutubeData: youArr});
   }
 
   checkSetting(){

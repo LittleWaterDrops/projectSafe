@@ -8,7 +8,8 @@ module.exports={
 		paddingTop:20,
 		paddingBottom: 20, 
 		borderBottomColor:"#EEEEEE", 
-		borderBottomWidth: 1
+		borderBottomWidth: 1,
+		justifyContent:"center"
 	},
 
 	"textSubtitle":{
