@@ -3,20 +3,20 @@ import PushNotification from "react-native-push-notification";
 import FirebaseApp from 'react-native-firebase';
 
 let settingFunc1Noti = [
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775217608785920/internet01.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775223603101726/internet02.png'
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080609711325184/internet01.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080602677739550/internet02.png'
 ];
 let settingFunc2Noti = [
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775259175518248/display01.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775261535862834/display02.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775264279461898/display03.png'
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080604862316564/display01_1.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080606410276895/display02.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080607601065994/display03.png'
 
 ];
 let youtubeFunc1Noti = [
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775301813764096/youtube01.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775303358185492/youtube02.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775307459297310/youtube03.png',
-  'https://cdn.discordapp.com/attachments/780775096666292244/780775308101681172/youtube04.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080635330002964/youtube01.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080636663398430/youtube02.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080639206195220/youtube03.png',
+  'https://cdn.discordapp.com/attachments/780775096666292244/781080633719783424/youtube04.png',
 ];
 
 export class notification extends Component {
